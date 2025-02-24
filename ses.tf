@@ -22,15 +22,6 @@ resource "aws_ses_domain_dkim" "landholderslaw_domain_dkim" {
   domain = aws_ses_domain_identity.landholderslaw_domain.domain
 }
 
-resource "aws_ses_domain_dkim_verification" "landholderslaw_domain_dkim_verify" {
-  domain = aws_ses_domain_dkim.landholderslaw_domain_dkim.domain
-  depends_on = [
-    aws_route53_record.ses_dkim_record[0],
-    aws_route53_record.ses_dkim_record[1],
-    aws_route53_record.ses_dkim_record[2]
-  ]
-}
-
 ###########################
 # 3) (Optional) Mail-From
 ###########################
