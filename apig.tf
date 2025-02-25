@@ -76,6 +76,7 @@ resource "aws_api_gateway_method" "consultation_options" {
   resource_id = aws_api_gateway_resource.consultation_resource.id
   http_method = "OPTIONS"
   authorization = "NONE"
+  api_key_required = true
 }
 
 resource "aws_api_gateway_integration" "consultation_options_integration" {
@@ -116,4 +117,38 @@ resource "aws_api_gateway_integration_response" "consultation_options_integratio
     "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'"
     "method.response.header.Access-Control-Allow-Origin"  = "'*'"
   }
+}
+
+resource "aws_api_gateway_usage_plan" "consultation_usage_plan" {
+  name = "landholders-law-api-usage-plan"
+
+  # (Optional) Throttling settings
+  throttle_settings {
+    burst_limit = 100   # Max requests in a single burst
+    rate_limit  = 50    # Steady-state requests per second
+  }
+
+  # (Optional) Quota settings
+  quota_settings {
+    limit  = 10000      # Max requests per month
+    period = "MONTH"
+  }
+
+  # Associate this plan with your REST API’s stage
+  api_stages {
+    api_id = aws_api_gateway_rest_api.landholderslaw_api.id
+    stage  = "development"
+  }
+}
+
+resource "aws_api_gateway_api_key" "landholders_law_api_key" {
+  name        = "landholders-law-api-key"
+  description = "API key for landholders law endpoints"
+  enabled     = true
+}
+
+resource "aws_api_gateway_usage_plan_key" "consultation_plan_key" {
+  key_id        = aws_api_gateway_api_key.landholders_law_api_key.id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.consultation_usage_plan.id
 }
