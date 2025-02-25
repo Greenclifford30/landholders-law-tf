@@ -11,6 +11,7 @@ resource "aws_lambda_function" "consultation_lambda" {
   environment {
     variables = {
       OWNER_EMAIL = var.owner_email
+      BUSINESS_EMAIL = var.business_email
     }
   }
 

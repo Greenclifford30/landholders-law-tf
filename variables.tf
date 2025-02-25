@@ -12,6 +12,12 @@ variable "owner_email" {
   description = "Email of the business owner to receive notifications."
 }
 
+variable "business_email" {
+  type        = string
+  default     = "assistant@landholderslaw.com"
+  description = "Email of the business owner to receive notifications."
+}
+
 # ses.tf
 variable "ses_domain_name" {
   type        = string
