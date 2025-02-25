@@ -23,6 +23,7 @@ resource "aws_api_gateway_method" "consultation_post" {
   resource_id   = aws_api_gateway_resource.consultation_resource.id
   http_method   = "POST"
   authorization = "NONE"
+  api_key_required = true
   # If you'd like to secure this method using IAM, Cognito, or an API key,
   # you can change 'NONE' to the appropriate authorization type.
 }
@@ -66,6 +67,9 @@ resource "aws_api_gateway_stage" "development" {
   deployment_id = aws_api_gateway_deployment.consultation_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.landholderslaw_api.id
   stage_name    = "development"
+  variables = {
+    redeploy_hash = "${timestamp()}"
+  }
 }
 
 ##############################
@@ -76,7 +80,6 @@ resource "aws_api_gateway_method" "consultation_options" {
   resource_id = aws_api_gateway_resource.consultation_resource.id
   http_method = "OPTIONS"
   authorization = "NONE"
-  api_key_required = true
 }
 
 resource "aws_api_gateway_integration" "consultation_options_integration" {
