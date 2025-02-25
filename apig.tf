@@ -67,3 +67,53 @@ resource "aws_api_gateway_stage" "development" {
   rest_api_id   = aws_api_gateway_rest_api.landholderslaw_api.id
   stage_name    = "development"
 }
+
+##############################
+# OPTIONS Method on /consultation
+##############################
+resource "aws_api_gateway_method" "consultation_options" {
+  rest_api_id = aws_api_gateway_rest_api.landholderslaw_api.id
+  resource_id = aws_api_gateway_resource.consultation_resource.id
+  http_method = "OPTIONS"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "consultation_options_integration" {
+  rest_api_id = aws_api_gateway_rest_api.landholderslaw_api.id
+  resource_id = aws_api_gateway_resource.consultation_resource.id
+  http_method = aws_api_gateway_method.consultation_options.http_method
+  type = "MOCK"
+
+  # A mock integration returns a static response (statusCode=200)
+  request_templates = {
+    "application/json" = "{\"statusCode\": 200}"
+  }
+
+}
+
+resource "aws_api_gateway_method_response" "consultation_options_200" {
+  rest_api_id = aws_api_gateway_rest_api.landholderslaw_api.id
+  resource_id = aws_api_gateway_resource.consultation_resource.id
+  http_method = aws_api_gateway_method.consultation_options.http_method
+  status_code = 200
+
+  # Each key must be set to 'true' to pass through the header
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+}
+
+resource "aws_api_gateway_integration_response" "consultation_options_integration_response_200" {
+  rest_api_id = aws_api_gateway_rest_api.landholderslaw_api.id
+  resource_id = aws_api_gateway_resource.consultation_resource.id
+  http_method = aws_api_gateway_method.consultation_options.http_method
+  status_code = 200
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+    "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+}
