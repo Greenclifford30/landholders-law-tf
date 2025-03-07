@@ -24,3 +24,8 @@ variable "ses_domain_name" {
   default     = "landholderslaw.com"
   description = "Domain name to verify for SES."
 }
+
+variable "google_verification_value" {
+  type = string
+  description = "google verification"
+}

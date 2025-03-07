@@ -31,3 +31,18 @@ resource "aws_route53_record" "ses_mailfrom_mx" {
   ttl     = 300
   records = ["10 feedback-smtp.us-east-1.amazonses.com"] # region-specific
 }
+
+resource "aws_route53_record" "google_site_verification" {
+  zone_id = data.aws_route53_zone.primary_zone.zone_id
+
+  # If you're verifying at the root (apex) of the domain, set 'name' to the domain_name
+  # If verifying a subdomain, set to subdomain.domain_name
+  name = "landholderslaw.com"
+
+  type = "TXT"
+  ttl  = 300
+
+  # Important: For TXT records in Terraform, wrap the text in additional quotes
+  # e.g. records = ["\"google-site-verification=xxxx\""]
+  records = ["\"${var.google_verification_value}\""]
+}
