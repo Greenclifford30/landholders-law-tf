@@ -44,5 +44,5 @@ resource "aws_route53_record" "google_site_verification" {
 
   # Important: For TXT records in Terraform, wrap the text in additional quotes
   # e.g. records = ["\"google-site-verification=xxxx\""]
-  records = ["\"${var.google_verification_value}\""]
+  records = ["${var.google_verification_value}"]
 }
