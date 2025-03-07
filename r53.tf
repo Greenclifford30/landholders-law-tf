@@ -33,7 +33,7 @@ resource "aws_route53_record" "ses_mailfrom_mx" {
 }
 
 resource "aws_route53_record" "google_site_verification" {
-  zone_id = data.aws_route53_zone.primary_zone.zone_id
+  zone_id = data.aws_route53_zone.selected.zone_id
 
   # If you're verifying at the root (apex) of the domain, set 'name' to the domain_name
   # If verifying a subdomain, set to subdomain.domain_name
