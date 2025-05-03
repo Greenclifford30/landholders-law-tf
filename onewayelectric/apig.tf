@@ -122,8 +122,8 @@ resource "aws_api_gateway_integration_response" "consultation_options_integratio
   }
 }
 
-resource "aws_api_gateway_usage_plan" "consultation_usage_plan" {
-  name = "landholders-law-api-usage-plan"
+resource "aws_api_gateway_usage_plan" "owe_usage_plan" {
+  name = "${var.app}-api-usage-plan"
 
   # (Optional) Throttling settings
   throttle_settings {
@@ -144,14 +144,14 @@ resource "aws_api_gateway_usage_plan" "consultation_usage_plan" {
   }
 }
 
-resource "aws_api_gateway_api_key" "landholders_law_api_key" {
-  name        = "landholders-law-api-key"
-  description = "API key for landholders law endpoints"
+resource "aws_api_gateway_api_key" "owe_law_api_key" {
+  name        = "${var.app}-api-key"
+  description = "API key for one way electric endpoints"
   enabled     = true
 }
 
-resource "aws_api_gateway_usage_plan_key" "consultation_plan_key" {
-  key_id        = aws_api_gateway_api_key.landholders_law_api_key.id
+resource "aws_api_gateway_usage_plan_key" "owe_law_api_key" {
+  key_id        = aws_api_gateway_api_key.owe_law_api_key.id
   key_type      = "API_KEY"
-  usage_plan_id = aws_api_gateway_usage_plan.consultation_usage_plan.id
+  usage_plan_id = aws_api_gateway_usage_plan.owe_usage_plan.id
 }
