@@ -12,6 +12,7 @@ resource "aws_lambda_function" "service_request" {
     variables = {
       OWNER_EMAIL = var.owner_email
       BUSINESS_EMAIL = var.business_email
+      DYNAMODB_TABLE = "${var.app}-service-requests"
     }
   }
 
