@@ -28,6 +28,16 @@ resource "aws_api_gateway_method" "service_post" {
   # you can change 'NONE' to the appropriate authorization type.
 }
 
+resource "aws_api_gateway_method" "get_service_requests" {
+  rest_api_id   = aws_api_gateway_rest_api.onewayelectric_api.id
+  resource_id   = aws_api_gateway_resource.service_resource.id
+  http_method   = "GET"
+  authorization = "NONE"
+  api_key_required = true
+  # If you'd like to secure this method using IAM, Cognito, or an API key,
+  # you can change 'NONE' to the appropriate authorization type.
+}
+
 #########################################
 # 4) Create the Lambda Integration (AWS_PROXY)
 #########################################
@@ -40,6 +50,15 @@ resource "aws_api_gateway_integration" "service_integration" {
   uri                     = aws_lambda_function.service_request.invoke_arn
 }
 
+resource "aws_api_gateway_integration" "get_service_requests_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.onewayelectric_api.id
+  resource_id             = aws_api_gateway_resource.service_resource.id
+  http_method             = aws_api_gateway_method.get_service_requests.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.get_service_requests.invoke_arn
+}
+
 ###############################################################
 # 5) Allow API Gateway to invoke the Lambda (Lambda Permission)
 ###############################################################
@@ -47,6 +66,16 @@ resource "aws_lambda_permission" "api_gateway_invoke" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.service_request.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  # This grants permission for any resource/method under this API stage
+  source_arn = "${aws_api_gateway_rest_api.onewayelectric_api.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "get_service_request_gateway_invoke" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_service_requests.function_name
   principal     = "apigateway.amazonaws.com"
 
   # This grants permission for any resource/method under this API stage
