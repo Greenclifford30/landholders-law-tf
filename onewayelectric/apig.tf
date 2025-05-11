@@ -15,6 +15,12 @@ resource "aws_api_gateway_resource" "service_resource" {
   path_part   = "service"
 }
 
+resource "aws_api_gateway_resource" "service_id" {
+  rest_api_id = aws_api_gateway_rest_api.onewayelectric_api.id
+  parent_id   = aws_api_gateway_resource.service_resource.id
+  path_part = "{serviceId}"
+}
+
 #########################################
 # 3) Configure the POST Method
 #########################################
@@ -40,7 +46,7 @@ resource "aws_api_gateway_method" "get_service_requests" {
 
 resource "aws_api_gateway_method" "patch_service_request" {
   rest_api_id   = aws_api_gateway_rest_api.onewayelectric_api.id
-  resource_id   = aws_api_gateway_resource.service_resource.id
+  resource_id   = aws_api_gateway_resource.service_id.id
   http_method   = "PATCH"
   authorization = "NONE"
   api_key_required = true
@@ -71,7 +77,7 @@ resource "aws_api_gateway_integration" "get_service_requests_integration" {
 
 resource "aws_api_gateway_integration" "patch_service_request" {
   rest_api_id             = aws_api_gateway_rest_api.onewayelectric_api.id
-  resource_id             = aws_api_gateway_resource.service_resource.id
+  resource_id             = aws_api_gateway_resource.service_id.id
   http_method             = aws_api_gateway_method.patch_service_request.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
@@ -169,6 +175,57 @@ resource "aws_api_gateway_method_response" "service_options_200" {
 resource "aws_api_gateway_integration_response" "service_options_integration_response_200" {
   rest_api_id = aws_api_gateway_rest_api.onewayelectric_api.id
   resource_id = aws_api_gateway_resource.service_resource.id
+  http_method = aws_api_gateway_method.service_options.http_method
+  status_code = 200
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+    "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'"
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+}
+
+##############################
+# OPTIONS Method on /service/{id}
+##############################
+
+resource "aws_api_gateway_method" "service_id_options" {
+  rest_api_id = aws_api_gateway_rest_api.onewayelectric_api.id
+  resource_id = aws_api_gateway_resource.service_id.id
+  http_method = "OPTIONS"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "service_id_options_integration" {
+  rest_api_id = aws_api_gateway_rest_api.onewayelectric_api.id
+  resource_id = aws_api_gateway_resource.service_id.id
+  http_method = aws_api_gateway_method.service_options.http_method
+  type = "MOCK"
+
+  # A mock integration returns a static response (statusCode=200)
+  request_templates = {
+    "application/json" = "{\"statusCode\": 200}"
+  }
+
+}
+
+resource "aws_api_gateway_method_response" "service_id_options_200" {
+  rest_api_id = aws_api_gateway_rest_api.onewayelectric_api.id
+  resource_id = aws_api_gateway_resource.service_id.id
+  http_method = aws_api_gateway_method.service_options.http_method
+  status_code = 200
+
+  # Each key must be set to 'true' to pass through the header
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true
+    "method.response.header.Access-Control-Allow-Methods" = true
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+}
+
+resource "aws_api_gateway_integration_response" "service_id_options_integration_response_200" {
+  rest_api_id = aws_api_gateway_rest_api.onewayelectric_api.id
+  resource_id = aws_api_gateway_resource.service_id.id
   http_method = aws_api_gateway_method.service_options.http_method
   status_code = 200
 
