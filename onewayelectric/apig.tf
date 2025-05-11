@@ -72,7 +72,7 @@ resource "aws_api_gateway_integration" "get_service_requests_integration" {
 resource "aws_api_gateway_integration" "patch_service_request" {
   rest_api_id             = aws_api_gateway_rest_api.onewayelectric_api.id
   resource_id             = aws_api_gateway_resource.service_resource.id
-  http_method             = aws_api_gateway_method.service_post.http_method
+  http_method             = aws_api_gateway_method.patch_service_request.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.patch_service_request.invoke_arn
