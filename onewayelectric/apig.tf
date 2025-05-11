@@ -199,7 +199,7 @@ resource "aws_api_gateway_method" "service_id_options" {
 resource "aws_api_gateway_integration" "service_id_options_integration" {
   rest_api_id = aws_api_gateway_rest_api.onewayelectric_api.id
   resource_id = aws_api_gateway_resource.service_id.id
-  http_method = aws_api_gateway_method.service_options.http_method
+  http_method = aws_api_gateway_method.service_id_options.http_method
   type = "MOCK"
 
   # A mock integration returns a static response (statusCode=200)
@@ -212,7 +212,7 @@ resource "aws_api_gateway_integration" "service_id_options_integration" {
 resource "aws_api_gateway_method_response" "service_id_options_200" {
   rest_api_id = aws_api_gateway_rest_api.onewayelectric_api.id
   resource_id = aws_api_gateway_resource.service_id.id
-  http_method = aws_api_gateway_method.service_options.http_method
+  http_method = aws_api_gateway_method.service_id_options.http_method
   status_code = 200
 
   # Each key must be set to 'true' to pass through the header
@@ -226,7 +226,7 @@ resource "aws_api_gateway_method_response" "service_id_options_200" {
 resource "aws_api_gateway_integration_response" "service_id_options_integration_response_200" {
   rest_api_id = aws_api_gateway_rest_api.onewayelectric_api.id
   resource_id = aws_api_gateway_resource.service_id.id
-  http_method = aws_api_gateway_method.service_options.http_method
+  http_method = aws_api_gateway_method.service_id_options.http_method
   status_code = 200
 
   response_parameters = {
