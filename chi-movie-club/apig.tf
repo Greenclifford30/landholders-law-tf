@@ -6,6 +6,22 @@ resource "aws_api_gateway_rest_api" "chimovieclub_api" {
   description = "Handles One Way Chi Movie Club API requests"
 }
 
+resource "aws_api_gateway_deployment" "cmc_deployment" {
+  depends_on = [
+    aws_api_gateway_integration.service_integration
+  ]
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+}
+
+resource "aws_api_gateway_stage" "development" {
+  deployment_id = aws_api_gateway_deployment.cmc_deployment.id
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  stage_name    = "development"
+  variables = {
+    redeploy_hash = "${timestamp()}"
+  }
+}
+
 resource "aws_api_gateway_resource" "admin" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_rest_api.chimovieclub_api.root_resource_id
@@ -29,6 +45,8 @@ resource "aws_api_gateway_resource" "options" {
   parent_id   = aws_api_gateway_rest_api.chimovieclub_api.root_resource_id
   path_part   = "options"
 }
+
+resource "aws_api"
 
 resource "aws_api_gateway_usage_plan" "chimovieclub_usage_plan" {
   name = "${var.app}-api-usage-plan"
