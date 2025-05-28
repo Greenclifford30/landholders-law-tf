@@ -7,9 +7,6 @@ resource "aws_api_gateway_rest_api" "chimovieclub_api" {
 }
 
 resource "aws_api_gateway_deployment" "cmc_deployment" {
-  depends_on = [
-    aws_api_gateway_integration.service_integration
-  ]
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
 }
 
