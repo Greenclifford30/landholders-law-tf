@@ -25,5 +25,5 @@ variable "google_verification_value" {
 variable "app" {
   type = string
   description = "application name"
-  default = "owe"
+  default = "cmc"
 }
