@@ -46,8 +46,6 @@ resource "aws_api_gateway_resource" "options" {
   path_part   = "options"
 }
 
-resource "aws_api"
-
 resource "aws_api_gateway_usage_plan" "chimovieclub_usage_plan" {
   name = "${var.app}-api-usage-plan"
 
