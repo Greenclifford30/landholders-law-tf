@@ -1,5 +1,5 @@
 resource "aws_lambda_function" "admin_selection" {
-  function_name = "${var.app}-admin-selection"
+  function_name = "${var.app}-admin-selection-lambda"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
   handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
@@ -27,7 +27,7 @@ resource "aws_lambda_function" "vote_handler" {
 }
 
 resource "aws_lambda_function" "get_selection" {
-  function_name = "${var.app}-get-selection"
+  function_name = "${var.app}-get-selection-lambda"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
   handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
@@ -41,7 +41,7 @@ resource "aws_lambda_function" "get_selection" {
 }
 
 resource "aws_lambda_function" "get_options" {
-  function_name = "${var.app}-get-options"
+  function_name = "${var.app}-get-options-lambda"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
   handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
