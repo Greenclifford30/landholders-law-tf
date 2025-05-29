@@ -21,3 +21,9 @@ variable "google_verification_value" {
   type = string
   description = "google verification"
 }
+
+variable "app"
+{ 
+  type = string
+  default = "landholderslaw"
+}
