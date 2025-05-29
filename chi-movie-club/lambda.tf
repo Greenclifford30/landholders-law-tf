@@ -7,7 +7,7 @@ resource "aws_lambda_function" "admin_selection" {
 
   environment {
     variables = {
-      ADMIN_SELECTIONS_TABLE = "AdminSelections"
+      MOVIE_SHOWTIME_OPTIONS_TABLE = "${var.app}_movie_showtime_options"
     }
   }
 }

@@ -54,7 +54,7 @@ data "aws_iam_policy_document" "policy" {
           "dynamodb:Query",
           "dynamodb:Scan"
     ]
-    resources = [aws_dynamodb_table.admin_selections.arn, aws_dynamodb_table.user_votes.arn]
+    resources = [aws_dynamodb_table.movie_showtime_options.arn, aws_dynamodb_table.user_votes.arn]
     
   }
 }
