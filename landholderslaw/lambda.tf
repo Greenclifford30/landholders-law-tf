@@ -1,5 +1,5 @@
 resource "aws_lambda_function" "consultation_lambda" {
-  function_name = "consultation-lambda"
+  function_name = "${var.app}-consultation-lambda"
   role          = aws_iam_role.consultation_lambda_role.arn
   runtime       = "python3.13"
   handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
