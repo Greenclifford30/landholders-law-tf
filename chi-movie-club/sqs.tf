@@ -1,0 +1,3 @@
+resource "aws_sqs_queue" "admin_selection" {
+  name = "${var.app}-admin-selection-queue"
+}
