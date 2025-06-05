@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "policy" {
     resources = ["*"]
     
   }
-    statement {
+  statement {
     actions   = [
           "dynamodb:PutItem",
           "dynamodb:GetItem",
@@ -55,6 +55,14 @@ data "aws_iam_policy_document" "policy" {
           "dynamodb:Scan"
     ]
     resources = [aws_dynamodb_table.movie_showtime_options.arn, aws_dynamodb_table.user_votes.arn]
+    
+  }
+    statement {
+    actions   = [
+          "sqs:SendMessage",
+          "sqs:GetQueueUrl"
+    ]
+    resources = [aws_sqs_queue.admin_selection.arn]
     
   }
 }
