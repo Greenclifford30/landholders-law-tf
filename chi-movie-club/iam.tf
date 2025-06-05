@@ -60,7 +60,10 @@ data "aws_iam_policy_document" "policy" {
     statement {
     actions   = [
           "sqs:SendMessage",
-          "sqs:GetQueueUrl"
+          "sqs:GetQueueUrl",
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
     ]
     resources = [aws_sqs_queue.admin_selection.arn]
     
