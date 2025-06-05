@@ -18,7 +18,7 @@ resource "aws_lambda_function" "movie_scraper" {
   runtime       = "python3.13"
   handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
   filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
-
+  timeout       = 60
   environment {
     variables = {
       ADMIN_SELECTION_QUEUE_URL = aws_sqs_queue.admin_selection.id
