@@ -7,7 +7,8 @@ resource "aws_lambda_function" "admin_selection" {
 
   environment {
     variables = {
-      MOVIE_SHOWTIME_OPTIONS_TABLE = "${var.app}_movie_showtime_options"
+            ADMIN_SELECTION_QUEUE_URL = aws_sqs_queue.admin_selection.id
+
     }
   }
 }
@@ -21,7 +22,8 @@ resource "aws_lambda_function" "movie_scraper" {
   timeout       = 60
   environment {
     variables = {
-      ADMIN_SELECTION_QUEUE_URL = aws_sqs_queue.admin_selection.id
+            MOVIE_SHOWTIME_OPTIONS_TABLE = "${var.app}_movie_showtime_options"
+
     }
   }
 }
