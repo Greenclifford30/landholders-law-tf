@@ -72,5 +72,9 @@ resource "aws_lambda_function" "get_options" {
   runtime       = "python3.13"
   handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
   filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
-
+  environment {
+    variables = {
+        MOVIE_SHOWTIME_OPTIONS_TABLE = "${var.app}_movie_showtime_options"
+    }
+  }
 }
