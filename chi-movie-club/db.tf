@@ -23,7 +23,7 @@ resource "aws_dynamodb_table" "movie_showtime_options" {
 
   attribute {
     name = "movieId"
-    type = "S"
+    type = "N"
   }
 
   attribute {
