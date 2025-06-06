@@ -61,13 +61,13 @@ resource "aws_lambda_function" "get_selection" {
 
   environment {
     variables = {
-      ADMIN_SELECTIONS_TABLE = "AdminSelections"
+        MOVIE_SHOWTIME_OPTIONS_TABLE = "${var.app}_movie_showtime_options"
     }
   }
 }
 
 resource "aws_lambda_function" "get_options" {
-  function_name = "${var.app}-get-options-lambdaa"
+  function_name = "${var.app}-get-options-lambda"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
   handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
