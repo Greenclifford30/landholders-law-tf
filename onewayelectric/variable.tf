@@ -20,6 +20,7 @@ variable "ses_domain_name" {
 variable "google_verification_value" {
   type = string
   description = "google verification"
+  default = "google-site-verification=m_VMqtEIg6gJPwpJCOQTFu-YTMZqMA-GIrLc1dUCDH8"
 }
 
 variable "app" {

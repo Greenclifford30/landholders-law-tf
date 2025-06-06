@@ -1,9 +1,9 @@
-# # We assume there's a data or resource block referencing your zone
-# # If you already have the zone, you might do:
-# data "aws_route53_zone" "selected" {
-#   name         = "landholderslaw.com"
-#   private_zone = false
-# }
+# We assume there's a data or resource block referencing your zone
+# If you already have the zone, you might do:
+data "aws_route53_zone" "selected" {
+  name         = "onewayelectricchi.com"
+  private_zone = false
+}
 
 # resource "aws_route53_record" "ses_verification_record" {
 #   zone_id = data.aws_route53_zone.selected.zone_id
@@ -32,17 +32,17 @@
 #   records = ["10 feedback-smtp.us-east-1.amazonses.com"] # region-specific
 # }
 
-# resource "aws_route53_record" "google_site_verification" {
-#   zone_id = data.aws_route53_zone.selected.zone_id
+resource "aws_route53_record" "google_site_verification" {
+  zone_id = data.aws_route53_zone.selected.zone_id
 
-#   # If you're verifying at the root (apex) of the domain, set 'name' to the domain_name
-#   # If verifying a subdomain, set to subdomain.domain_name
-#   name = "landholderslaw.com"
+  # If you're verifying at the root (apex) of the domain, set 'name' to the domain_name
+  # If verifying a subdomain, set to subdomain.domain_name
+  name = "onewayelectricchi.com"
 
-#   type = "TXT"
-#   ttl  = 300
+  type = "TXT"
+  ttl  = 300
 
-#   # Important: For TXT records in Terraform, wrap the text in additional quotes
-#   # e.g. records = ["\"google-site-verification=xxxx\""]
-#   records = ["${var.google_verification_value}"]
-# }
+  # Important: For TXT records in Terraform, wrap the text in additional quotes
+  # e.g. records = ["\"google-site-verification=xxxx\""]
+  records = ["${var.google_verification_value}"]
+}
