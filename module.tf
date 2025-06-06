@@ -5,7 +5,6 @@ module landholderslaw {
 
 module "onewayelectric" {
   source = "./onewayelectric"
-  google_verification_value = ""
 }
 
 module "chimovieclub" {
