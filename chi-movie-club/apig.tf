@@ -136,7 +136,7 @@ resource "aws_api_gateway_method" "get_options_options" {
 resource "aws_api_gateway_integration" "get_options_options_integration" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   resource_id = aws_api_gateway_resource.options.id
-  http_method = aws_api_gateway_method.get_options.http_method
+  http_method = aws_api_gateway_method.get_options_options.http_method
   type = "MOCK"
 
   # A mock integration returns a static response (statusCode=200)
@@ -149,7 +149,7 @@ resource "aws_api_gateway_integration" "get_options_options_integration" {
 resource "aws_api_gateway_method_response" "get_options_options_200" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   resource_id = aws_api_gateway_resource.options.id
-  http_method = aws_api_gateway_method.get_options.http_method
+  http_method = aws_api_gateway_method.get_options_options.http_method
   status_code = 200
 
   # Each key must be set to 'true' to pass through the header
@@ -163,7 +163,7 @@ resource "aws_api_gateway_method_response" "get_options_options_200" {
 resource "aws_api_gateway_integration_response" "get_options_options_integration_response_200" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   resource_id = aws_api_gateway_resource.selection.id
-  http_method = aws_api_gateway_method.get_options.http_method
+  http_method = aws_api_gateway_method.get_options_options.http_method
   status_code = 200
 
   response_parameters = {
