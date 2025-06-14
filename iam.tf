@@ -35,3 +35,7 @@ resource "aws_iam_user_policy_attachment" "amplify_policy_attachment" {
   user       = aws_iam_user.amplify_user.name
   policy_arn = aws_iam_policy.amplify_policy.arn
 }
+
+resource "aws_iam_access_key" "amplify_user_key" {
+  user = aws_iam_user.amplify_user.name
+}
