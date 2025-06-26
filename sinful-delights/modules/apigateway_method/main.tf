@@ -16,7 +16,7 @@ resource "aws_api_gateway_integration" "integration" {
   http_method             = aws_api_gateway_method.method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = var.lambda_arn
+  uri                     = var.lambda_invoke_arn
 }
 
 resource "aws_lambda_permission" "invoke" {
@@ -44,6 +44,7 @@ resource "aws_api_gateway_integration" "options_integration" {
   resource_id             = var.resource_id
   http_method             = aws_api_gateway_method.options.http_method
   type                    = "MOCK"
+  
   request_templates       = {
     "application/json" = <<EOF
     {
@@ -75,7 +76,7 @@ resource "aws_api_gateway_integration_response" "options_integration_response" {
   resource_id = var.resource_id
   http_method = "OPTIONS"
   status_code = "200"
-
+  
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
     "method.response.header.Access-Control-Allow-Methods" = "'*'",
