@@ -27,7 +27,3 @@ variable "app" {
   description = "application name"
   default = "sinflul_delights"
 }
-
-variable "env" {
-  
-}
