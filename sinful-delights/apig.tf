@@ -30,17 +30,18 @@ module "create_menu_post" {
   resource_id = aws_api_gateway_resource.admin_menu.id
   http_method = "POST"
   lambda_arn  = module.create_menu_lambda.lambda_function_arn
+
 }
 
 #########################################
 # 6) Create a Deployment and a Stage
 #########################################
-resource "aws_api_gateway_deployment" "consultation_deployment" {
+resource "aws_api_gateway_deployment" "deployment" {
   rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
 }
 
 resource "aws_api_gateway_stage" "development" {
-  deployment_id = aws_api_gateway_deployment.consultation_deployment.id
+  deployment_id = aws_api_gateway_deployment.deployment.id
   rest_api_id   = aws_api_gateway_rest_api.sinful_delights_api.id
   stage_name    = "development"
   variables = {
