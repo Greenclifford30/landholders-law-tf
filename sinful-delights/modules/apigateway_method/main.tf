@@ -90,8 +90,3 @@ resource "aws_api_gateway_integration_response" "options_integration_response" {
 data "aws_region" "current" {}
 
 data "aws_caller_identity" "current" {}
-
-data "aws_api_gateway_resource" "my_resource" {
-  rest_api_id = data.aws_api_gateway_rest_api.my_rest_api.id
-  path        = "/endpoint/path"
-}
