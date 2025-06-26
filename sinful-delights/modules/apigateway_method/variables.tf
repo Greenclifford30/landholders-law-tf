@@ -24,6 +24,10 @@ variable "lambda_invoke_permission" {
   default     = true
 }
 
+variable "lambda_invoke_arn" {
+  type = string
+}
+
 variable "authorizer_id" {
   description = "Optional authorizer ID for secured routes"
   type        = string
