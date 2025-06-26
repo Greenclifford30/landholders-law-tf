@@ -30,7 +30,7 @@ module "create_menu_post" {
   resource_id = aws_api_gateway_resource.admin_menu.id
   http_method = "POST"
   lambda_arn  = module.create_menu_lambda.lambda_function_arn
-
+  lambda_invoke_arn = module.create_menu_lambda.lambda_invoke_arn
 }
 
 #########################################
