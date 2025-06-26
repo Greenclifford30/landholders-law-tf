@@ -43,9 +43,3 @@ variable "filename" {
   type        = string
   default     = "bootstrap/lambda_stub.zip"
 }
-
-variable "app_underscore" {
-  type = string
-  description = "application name"
-  default = "sinflul_delights"
-}
