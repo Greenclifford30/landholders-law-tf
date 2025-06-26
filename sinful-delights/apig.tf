@@ -36,9 +36,6 @@ module "create_menu_post" {
 # 6) Create a Deployment and a Stage
 #########################################
 resource "aws_api_gateway_deployment" "consultation_deployment" {
-  depends_on = [
-    aws_api_gateway_integration.consultation_integration
-  ]
   rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
 }
 
