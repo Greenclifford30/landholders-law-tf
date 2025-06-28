@@ -33,3 +33,8 @@ variable "authorizer_id" {
   type        = string
   default     = null
 }
+
+variable "apig_gateway_source_arn" {
+  description = "api gateway source arn"
+  type = string
+}

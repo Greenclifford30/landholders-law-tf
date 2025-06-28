@@ -31,6 +31,7 @@ module "create_menu_post" {
   http_method = "POST"
   lambda_arn  = module.create_menu_lambda.lambda_function_arn
   lambda_invoke_arn = module.create_menu_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
 }
 
 #########################################
