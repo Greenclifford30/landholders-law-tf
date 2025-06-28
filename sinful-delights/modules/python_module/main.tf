@@ -11,7 +11,7 @@ data "archive_file" "lambda_stub" {
                 'body': 'Stub Lambda'
             }
         EOF
-    filename = "main.py"
+    filename = "app.py"
   }
 }
 

@@ -6,13 +6,13 @@ variable "function_name" {
 variable "handler" {
   description = "Handler (e.g., main.handler)"
   type        = string
-  default     = "main.handler"
+  default     = "app.handler"
 }
 
 variable "runtime" {
   description = "Lambda runtime"
   type        = string
-  default     = "python3.11"
+  default     = "python3.13"
 }
 
 variable "role_arn" {
