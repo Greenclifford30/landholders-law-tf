@@ -25,11 +25,11 @@ variable "google_verification_value" {
 variable "app" {
   type = string
   description = "application name"
-  default = "sinflul-delights"
+  default = "sinful-delights"
 }
 
 variable "app_underscore" {
   type = string
   description = "application name"
-  default = "sinflul_delights"
+  default = "sinful_delights"
 }
