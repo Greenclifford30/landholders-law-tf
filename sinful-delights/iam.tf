@@ -28,25 +28,38 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
 ###########################################
 # Create and attach an SES send policy
 ###########################################
-resource "aws_iam_policy" "sinflul_delights_lambda_ses" {
-  name        = "${var.app}-lambda-ses-policy"
+resource "aws_iam_policy" "lambda_policy" {
+  name        = "${var.app}-lambda-policy"
   path        = "/"
-  description = "IAM policy for sending emails via SES"
+  description = "IAM policy for OWE lambdas"
 
-  policy = data.aws_iam_policy_document.ses.json
+  policy = data.aws_iam_policy_document.policy.json
 }
 
-data "aws_iam_policy_document" "ses" {
+data "aws_iam_policy_document" "policy" {
   statement {
     actions   = [
       "ses:SendEmail",
       "ses:SendRawEmail",
     ]
     resources = ["*"]
+    
+  }
+    statement {
+    actions   = [
+          "dynamodb:PutItem",
+          "dynamodb:GetItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:Query",
+          "dynamodb:Scan"
+    ]
+    resources = [aws_dynamodb_table.service_requests.arn]
+    
   }
 }
 
-resource "aws_iam_role_policy_attachment" "ses_attach" {
+resource "aws_iam_role_policy_attachment" "policy_attach" {
   role       = aws_iam_role.sinflul_delights_lambda_role.name
-  policy_arn = aws_iam_policy.sinflul_delights_lambda_ses.arn
+  policy_arn = aws_iam_policy.lambda_policy.arn
 }
