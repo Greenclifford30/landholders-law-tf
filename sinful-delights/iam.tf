@@ -54,7 +54,7 @@ data "aws_iam_policy_document" "policy" {
           "dynamodb:Query",
           "dynamodb:Scan"
     ]
-    resources = [aws_dynamodb_table.service_requests.arn]
+    resources = [aws_dynamodb_table.sinful_delights.arn]
     
   }
 }
