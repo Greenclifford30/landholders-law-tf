@@ -18,11 +18,11 @@ resource "aws_api_gateway_resource" "admin" {
 #########################################
 # 2) Create the "/admin/menu" Resource
 #########################################
-# resource "aws_api_gateway_resource" "checkin" {
-#   rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
-#   parent_id   = aws_api_gateway_resource.admin.id
-#   path_part   = "checkin"
-# }
+resource "aws_api_gateway_resource" "checkin" {
+  rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
+  parent_id   = aws_api_gateway_resource.admin.id
+  path_part   = "checkin"
+}
 
 # module "checkin_post" {
 #   source      = "./modules/apigateway_method"
@@ -34,11 +34,11 @@ resource "aws_api_gateway_resource" "admin" {
 #   apig_gateway_source_arn = aws_api_gateway_rest_api.stricklin_api.execution_arn
 # }
 
-# resource "aws_api_gateway_resource" "dashboard" {
-#   rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
-#   parent_id   = aws_api_gateway_resource.admin.id
-#   path_part   = "dashboard"
-# }
+resource "aws_api_gateway_resource" "dashboard" {
+  rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
+  parent_id   = aws_api_gateway_resource.admin.id
+  path_part   = "dashboard"
+}
 
 
 # module "get_dashboard_post" {
