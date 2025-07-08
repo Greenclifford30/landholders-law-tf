@@ -18,38 +18,38 @@ resource "aws_api_gateway_resource" "admin" {
 #########################################
 # 2) Create the "/admin/menu" Resource
 #########################################
-resource "aws_api_gateway_resource" "checkin" {
-  rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
-  parent_id   = aws_api_gateway_resource.admin.id
-  path_part   = "checkin"
-}
+# resource "aws_api_gateway_resource" "checkin" {
+#   rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
+#   parent_id   = aws_api_gateway_resource.admin.id
+#   path_part   = "checkin"
+# }
 
-module "checkin_post" {
-  source      = "./modules/apigateway_method"
-  api_id      = aws_api_gateway_rest_api.stricklin_api.id
-  resource_id = aws_api_gateway_resource.checkin.id
-  http_method = "POST"
-  lambda_arn  = module.checkin_post.lambda_function_arn
-  lambda_invoke_arn = module.checkin_post.lambda_invoke_arn
-  apig_gateway_source_arn = aws_api_gateway_rest_api.stricklin_api.execution_arn
-}
+# module "checkin_post" {
+#   source      = "./modules/apigateway_method"
+#   api_id      = aws_api_gateway_rest_api.stricklin_api.id
+#   resource_id = aws_api_gateway_resource.checkin.id
+#   http_method = "POST"
+#   lambda_arn  = module.checkin_post.lambda_function_arn
+#   lambda_invoke_arn = module.checkin_post.lambda_invoke_arn
+#   apig_gateway_source_arn = aws_api_gateway_rest_api.stricklin_api.execution_arn
+# }
 
-resource "aws_api_gateway_resource" "dashboard" {
-  rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
-  parent_id   = aws_api_gateway_resource.admin.id
-  path_part   = "dashboard"
-}
+# resource "aws_api_gateway_resource" "dashboard" {
+#   rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
+#   parent_id   = aws_api_gateway_resource.admin.id
+#   path_part   = "dashboard"
+# }
 
 
-module "get_dashboard_post" {
-  source      = "./modules/apigateway_method"
-  api_id      = aws_api_gateway_rest_api.stricklin_api.id
-  resource_id = aws_api_gateway_resource.dashboard.id
-  http_method = "GET"
-  lambda_arn  = module.get_dashboard_lambda.lambda_function_arn
-  lambda_invoke_arn = module.get_dashboard_lambda.lambda_invoke_arn
-  apig_gateway_source_arn = aws_api_gateway_rest_api.stricklin_api.execution_arn
-}
+# module "get_dashboard_post" {
+#   source      = "./modules/apigateway_method"
+#   api_id      = aws_api_gateway_rest_api.stricklin_api.id
+#   resource_id = aws_api_gateway_resource.dashboard.id
+#   http_method = "GET"
+#   lambda_arn  = module.get_dashboard_lambda.lambda_function_arn
+#   lambda_invoke_arn = module.get_dashboard_lambda.lambda_invoke_arn
+#   apig_gateway_source_arn = aws_api_gateway_rest_api.stricklin_api.execution_arn
+# }
 #########################################
 # 6) Create a Deployment and a Stage
 #########################################
