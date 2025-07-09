@@ -67,6 +67,22 @@ module "get_attendees" {
   lambda_invoke_arn = module.get_attendees_lambda.lambda_invoke_arn
   apig_gateway_source_arn = aws_api_gateway_rest_api.stricklin_api.execution_arn
 }
+
+resource "aws_api_gateway_resource" "search_attendees" {
+  rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
+  parent_id   = aws_api_gateway_resource.attendees.id
+  path_part   = "search"
+}
+
+module "get_search_attendees" {
+  source      = "./modules/apigateway_method"
+  api_id      = aws_api_gateway_rest_api.stricklin_api.id
+  resource_id = aws_api_gateway_resource.search_attendees.id
+  http_method = "GET"
+  lambda_arn  = module.get_search_attendees_lambda.lambda_function_arn
+  lambda_invoke_arn = module.get_search_attendees_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.stricklin_api.execution_arn
+}
 #########################################
 # 6) Create a Deployment and a Stage
 #########################################
