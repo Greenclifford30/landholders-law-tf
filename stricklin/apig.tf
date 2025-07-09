@@ -41,13 +41,30 @@ resource "aws_api_gateway_resource" "dashboard" {
 }
 
 
-module "get_dashboard_post" {
+module "get_dashboard" {
   source      = "./modules/apigateway_method"
   api_id      = aws_api_gateway_rest_api.stricklin_api.id
   resource_id = aws_api_gateway_resource.dashboard.id
   http_method = "GET"
   lambda_arn  = module.get_dashboard_lambda.lambda_function_arn
   lambda_invoke_arn = module.get_dashboard_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.stricklin_api.execution_arn
+}
+
+
+resource "aws_api_gateway_resource" "attendees" {
+    rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
+  parent_id   = aws_api_gateway_resource.admin.id
+  path_part   = "attendees"
+}
+
+module "get_attendees" {
+  source      = "./modules/apigateway_method"
+  api_id      = aws_api_gateway_rest_api.stricklin_api.id
+  resource_id = aws_api_gateway_resource.attendees.id
+  http_method = "GET"
+  lambda_arn  = module.get_attendees_lambda.lambda_function_arn
+  lambda_invoke_arn = module.get_attendees_lambda.lambda_invoke_arn
   apig_gateway_source_arn = aws_api_gateway_rest_api.stricklin_api.execution_arn
 }
 #########################################
