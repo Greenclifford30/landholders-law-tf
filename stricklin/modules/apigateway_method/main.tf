@@ -57,7 +57,7 @@ EOF
 resource "aws_api_gateway_method_response" "options_response" {
   rest_api_id = var.api_id
   resource_id = var.resource_id
-  http_method = "OPTIONS"
+  http_method = aws_api_gateway_method.options.http_method
   status_code = "200"
 
   response_parameters = {
@@ -74,7 +74,7 @@ resource "aws_api_gateway_method_response" "options_response" {
 resource "aws_api_gateway_integration_response" "options_integration_response" {
   rest_api_id = var.api_id
   resource_id = var.resource_id
-  http_method = "OPTIONS"
+  http_method = aws_api_gateway_method.options.http_method
   status_code = "200"
   
   response_parameters = {
