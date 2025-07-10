@@ -24,10 +24,16 @@ resource "aws_api_gateway_resource" "checkin" {
   path_part   = "checkin"
 }
 
+resource "aws_api_gateway_resource" "attendee_id" {
+  rest_api_id = aws_api_gateway_rest_api.stricklin_api.id
+  parent_id   = aws_api_gateway_resource.checkin.id
+  path_part   = "{attendeeId}"
+}
+
 module "checkin_post" {
   source      = "./modules/apigateway_method"
   api_id      = aws_api_gateway_rest_api.stricklin_api.id
-  resource_id = aws_api_gateway_resource.checkin.id
+  resource_id = aws_api_gateway_resource.attendee_id.id
   http_method = "POST"
   lambda_arn  = module.post_checkin_lambda.lambda_function_arn
   lambda_invoke_arn = module.post_checkin_lambda.lambda_invoke_arn
