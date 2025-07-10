@@ -38,6 +38,8 @@ module "checkin_post" {
   lambda_arn  = module.post_checkin_lambda.lambda_function_arn
   lambda_invoke_arn = module.post_checkin_lambda.lambda_invoke_arn
   apig_gateway_source_arn = aws_api_gateway_rest_api.stricklin_api.execution_arn
+  expect_uri_parameter = true
+  uri_param = "attendeeId"
 }
 
 resource "aws_api_gateway_resource" "dashboard" {

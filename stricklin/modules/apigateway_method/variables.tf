@@ -38,3 +38,12 @@ variable "apig_gateway_source_arn" {
   description = "api gateway source arn"
   type = string
 }
+variable "expect_uri_parameter" {
+  type = bool
+  default = false
+}
+
+variable "uri_param" {
+  type = string
+  default = ""
+}
