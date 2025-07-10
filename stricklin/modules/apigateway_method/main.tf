@@ -8,6 +8,9 @@ resource "aws_api_gateway_method" "method" {
   http_method   = var.http_method
   authorization = var.authorizer_id != null ? "CUSTOM" : "NONE"
   authorizer_id = var.authorizer_id
+  request_parameters      = merge(var.expect_uri_parameter) ? {
+    "integration.request.path.${var.uri_param}" = "method.request.path.${var.uri_param}"
+  }: {}
 }
 
 resource "aws_api_gateway_integration" "integration" {
@@ -17,6 +20,9 @@ resource "aws_api_gateway_integration" "integration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = var.lambda_invoke_arn
+  request_parameters      = merge(var.expect_uri_parameter) ? {
+    "integration.request.path.${var.uri_param}" = "method.request.path.${var.uri_param}"
+  }: {}
 }
 
 resource "aws_lambda_permission" "invoke" {
