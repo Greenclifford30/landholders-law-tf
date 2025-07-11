@@ -47,3 +47,20 @@ variable "uri_param" {
   type = string
   default = ""
 }
+
+variable "allowed_origin" {
+  description = "Origin allowed for CORS"
+  default     = "*"
+}
+
+variable "allowed_methods" {
+  description = "List of HTTP methods allowed for CORS"
+  type        = list(string)
+  default     = ["GET", "POST", "OPTIONS", "PUT", "DELETE"]
+}
+
+variable "allowed_headers" {
+  description = "List of headers allowed for CORS"
+  type        = list(string)
+  default     = ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key"]
+}
