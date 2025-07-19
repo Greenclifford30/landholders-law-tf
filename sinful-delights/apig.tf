@@ -6,13 +6,67 @@ resource "aws_api_gateway_rest_api" "sinful_delights_api" {
   description = "Handles Landholders Law API requests"
 }
 
-#########################################
-# 2) Create the "/admin" Resource
-#########################################
-resource "aws_api_gateway_resource" "admin" {
+
+resource "aws_api_gateway_resource" "v1" {
   rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
   parent_id   = aws_api_gateway_rest_api.sinful_delights_api.root_resource_id
+  path_part   = "v1"
+}
+
+# Child resources
+resource "aws_api_gateway_resource" "menu_today" {
+  rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
+  parent_id   = aws_api_gateway_resource.v1.id
+  path_part   = "menu"
+}
+
+resource "aws_api_gateway_resource" "menu_today_today" {
+  rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
+  parent_id   = aws_api_gateway_resource.menu_today.id
+  path_part   = "today"
+}
+
+resource "aws_api_gateway_resource" "order" {
+  rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
+  parent_id   = aws_api_gateway_resource.v1.id
+  path_part   = "order"
+}
+
+resource "aws_api_gateway_resource" "subscription" {
+  rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
+  parent_id   = aws_api_gateway_resource.v1.id
+  path_part   = "subscription"
+}
+
+resource "aws_api_gateway_resource" "catering" {
+  rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
+  parent_id   = aws_api_gateway_resource.v1.id
+  path_part   = "catering"
+}
+
+# Admin resources
+resource "aws_api_gateway_resource" "admin" {
+  rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
+  parent_id   = aws_api_gateway_resource.v1.id
   path_part   = "admin"
+}
+
+resource "aws_api_gateway_resource" "admin_analytics" {
+  rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
+  parent_id   = aws_api_gateway_resource.admin.id
+  path_part   = "analytics"
+}
+
+resource "aws_api_gateway_resource" "admin_menu" {
+  rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
+  parent_id   = aws_api_gateway_resource.admin.id
+  path_part   = "menu"
+}
+
+resource "aws_api_gateway_resource" "admin_inventory" {
+  rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
+  parent_id   = aws_api_gateway_resource.admin.id
+  path_part   = "inventory"
 }
 
 #########################################
@@ -24,15 +78,94 @@ resource "aws_api_gateway_resource" "admin_menu" {
   path_part   = "menu"
 }
 
-module "create_menu_post" {
+# GET /v1/menu/today
+module "get_menu_today" {
+  source      = "./modules/apigateway_method"
+  api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
+  resource_id = aws_api_gateway_resource.menu_today_today.id
+  http_method = "GET"
+  lambda_arn  = module.get_menu_today_lambda.lambda_function_arn
+  lambda_invoke_arn = module.get_menu_today_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
+}
+
+# POST /v1/order
+module "post_order" {
+  source      = "./modules/apigateway_method"
+  api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
+  resource_id = aws_api_gateway_resource.order.id
+  http_method = "POST"
+  lambda_arn  = module.post_order_lambda.lambda_function_arn
+  lambda_invoke_arn = module.post_order_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
+}
+
+# GET /v1/subscription
+module "get_subscription" {
+  source      = "./modules/apigateway_method"
+  api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
+  resource_id = aws_api_gateway_resource.subscription.id
+  http_method = "GET"
+  lambda_arn  = module.get_subscription_lambda.lambda_function_arn
+  lambda_invoke_arn = module.get_subscription_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
+}
+
+# POST /v1/subscription
+module "post_subscription" {
+  source      = "./modules/apigateway_method"
+  api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
+  resource_id = aws_api_gateway_resource.subscription.id
+  http_method = "POST"
+  lambda_arn  = module.post_subscription_lambda.lambda_function_arn
+  lambda_invoke_arn = module.post_subscription_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
+}
+
+# POST /v1/catering
+module "post_catering" {
+  source      = "./modules/apigateway_method"
+  api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
+  resource_id = aws_api_gateway_resource.catering.id
+  http_method = "POST"
+  lambda_arn  = module.post_catering_lambda.lambda_function_arn
+  lambda_invoke_arn = module.post_catering_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
+}
+
+# GET /v1/admin/analytics
+module "get_admin_analytics" {
+  source      = "./modules/apigateway_method"
+  api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
+  resource_id = aws_api_gateway_resource.admin_analytics.id
+  http_method = "GET"
+  lambda_arn  = module.get_admin_analytics_lambda.lambda_function_arn
+  lambda_invoke_arn = module.get_admin_analytics_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
+}
+
+# POST /v1/admin/menu
+module "post_admin_menu" {
   source      = "./modules/apigateway_method"
   api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
   resource_id = aws_api_gateway_resource.admin_menu.id
   http_method = "POST"
-  lambda_arn  = module.create_menu_lambda.lambda_function_arn
-  lambda_invoke_arn = module.create_menu_lambda.lambda_invoke_arn
+  lambda_arn  = module.post_admin_menu_lambda.lambda_function_arn
+  lambda_invoke_arn = module.post_admin_menu_lambda.lambda_invoke_arn
   apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
 }
+
+# POST /v1/admin/inventory
+module "post_admin_inventory" {
+  source      = "./modules/apigateway_method"
+  api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
+  resource_id = aws_api_gateway_resource.admin_inventory.id
+  http_method = "POST"
+  lambda_arn  = module.post_admin_inventory_lambda.lambda_function_arn
+  lambda_invoke_arn = module.post_admin_inventory_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
+}
+
 
 #########################################
 # 6) Create a Deployment and a Stage
