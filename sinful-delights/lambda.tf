@@ -56,6 +56,7 @@ module "post_admin_menu_lambda" {
   function_name     = "${var.app}-post-admin-menu-lambda"
   role_arn          = aws_iam_role.sinflul_delights_lambda_role.arn
   environment_variables = {
+    TABLE_NAME = aws_dynamodb_table.menu.arn
   }
 }
 
