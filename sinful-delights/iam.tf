@@ -54,7 +54,8 @@ data "aws_iam_policy_document" "policy" {
           "dynamodb:Query",
           "dynamodb:Scan"
     ]
-    resources = [aws_dynamodb_table.menu.arn, aws_dynamodb_table.menu_item.arn, aws_dynamodb_table.predefined_menu.arn, aws_dynamodb_table.order.arn, aws_dynamodb_table.catering_request.arn]
+    resources = [
+      aws_dynamodb_table.menu.arn, "${aws_dynamodb_table.menu.arn}/*", aws_dynamodb_table.menu_item.arn, aws_dynamodb_table.predefined_menu.arn, aws_dynamodb_table.order.arn, aws_dynamodb_table.catering_request.arn]
     
   }
 }
