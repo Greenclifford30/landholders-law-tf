@@ -6,7 +6,7 @@ variable "function_name" {
 variable "handler" {
   description = "Handler (e.g., main.handler)"
   type        = string
-  default     = "app.handler"
+  default     = "app.lambda_handler"
 }
 
 variable "runtime" {

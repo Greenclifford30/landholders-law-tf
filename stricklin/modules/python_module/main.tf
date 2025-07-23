@@ -5,7 +5,7 @@ data "archive_file" "lambda_stub" {
 
   source {
     content  = <<EOF
-        def handler(event, context):
+        def lambda_handler(event, context):
             return {
                 'statusCode': 200,
                 'body': 'Stub Lambda'
