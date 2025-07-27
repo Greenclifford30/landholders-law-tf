@@ -107,7 +107,7 @@ resource "aws_api_gateway_resource" "admin_inventory" {
 }
 
 # GET /v1/menu
-module "get_menu_today" {
+module "get_menu" {
   source      = "./modules/apigateway_method"
   api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
   resource_id = aws_api_gateway_resource.menu.id
