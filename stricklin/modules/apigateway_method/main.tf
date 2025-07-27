@@ -8,12 +8,9 @@ resource "aws_api_gateway_method" "method" {
   http_method   = var.http_method
   authorization = var.authorizer_id != null ? "CUSTOM" : "NONE"
   authorizer_id = var.authorizer_id
-
-  request_parameters = merge(
-    var.expect_uri_parameter ? {
-      "method.request.path.${var.uri_param}" = true
-    } : {}
-  )
+  request_parameters      = merge(var.expect_uri_parameter ? {
+    "method.request.path.${var.uri_param}" = true
+  }: {})
 }
 
 resource "aws_api_gateway_integration" "integration" {
@@ -23,12 +20,9 @@ resource "aws_api_gateway_integration" "integration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = var.lambda_invoke_arn
-
-  request_parameters = merge(
-    var.expect_uri_parameter ? {
-      "integration.request.path.${var.uri_param}" = "method.request.path.${var.uri_param}"
-    } : {}
-  )
+  request_parameters      = merge(var.expect_uri_parameter ? {
+    "integration.request.path.${var.uri_param}" = "method.request.path.${var.uri_param}"
+  }: {})
 }
 
 resource "aws_lambda_permission" "invoke" {
@@ -37,7 +31,7 @@ resource "aws_lambda_permission" "invoke" {
   action        = "lambda:InvokeFunction"
   function_name = var.lambda_arn
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${var.apig_gateway_source_arn}/*/*"
+  source_arn = "${var.apig_gateway_source_arn}/*/*"
 }
 
 ############################################################
@@ -52,16 +46,16 @@ resource "aws_api_gateway_method" "options" {
 }
 
 resource "aws_api_gateway_integration" "options_integration" {
-  rest_api_id   = var.api_id
-  resource_id   = var.resource_id
-  http_method   = aws_api_gateway_method.options.http_method
-  type          = "MOCK"
-
-  request_templates = {
+  rest_api_id             = var.api_id
+  resource_id             = var.resource_id
+  http_method             = aws_api_gateway_method.options.http_method
+  type                    = "MOCK"
+  
+  request_templates       = {
     "application/json" = <<EOF
-{
-  "statusCode": 200
-}
+    {
+    "statusCode": 200
+    }
 EOF
   }
 }
@@ -88,11 +82,11 @@ resource "aws_api_gateway_integration_response" "options_integration_response" {
   resource_id = var.resource_id
   http_method = aws_api_gateway_method.options.http_method
   status_code = "200"
-
+  
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Headers" = "'${join(",", var.allowed_headers)}'",
-    "method.response.header.Access-Control-Allow-Methods" = "'${join(",", var.allowed_methods)}'",
-    "method.response.header.Access-Control-Allow-Origin"  = "'${var.allowed_origin}'"
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
+    "method.response.header.Access-Control-Allow-Methods" = "'*'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
   }
 }
 

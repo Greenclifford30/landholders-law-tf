@@ -229,6 +229,7 @@ module "delete_admin_menu_by_id" {
   apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
   expect_uri_parameter = true
   uri_param = "{menuId}"
+  create_options = false
 }
 
 # POST /v1/admin/menu
@@ -288,6 +289,7 @@ module "put_admin_menu_template" {
   apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
   expect_uri_parameter = true
   uri_param = "{templateId}"
+  create_options = false
 }
 
 # DELETE /v1/admin/menu-templates/{templateId}
@@ -301,6 +303,7 @@ module "delete_admin_menu_template" {
   apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
   expect_uri_parameter = true
   uri_param = "{templateId}"
+  create_options = false
 }
 
 # POST /v1/admin/inventory
