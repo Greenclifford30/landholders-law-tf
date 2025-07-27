@@ -97,7 +97,7 @@ resource "aws_api_gateway_resource" "admin_menu_template_id" {
 resource "aws_api_gateway_resource" "admin_menu_import" {
   rest_api_id = aws_api_gateway_rest_api.sinful_delights_api.id
   parent_id   = aws_api_gateway_resource.admin.id
-  path_part   = "menu"
+  path_part   = "import"
 }
 
 resource "aws_api_gateway_resource" "admin_inventory" {
@@ -270,7 +270,7 @@ module "get_admin_menu_template_by_id" {
   source      = "./modules/apigateway_method"
   api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
   resource_id = aws_api_gateway_resource.admin_menu_template_id.id
-  http_method = "PUT"
+  http_method = "GET"
   lambda_arn  = module.get_admin_menu_template_by_id_lambda.lambda_function_arn
   lambda_invoke_arn = module.get_admin_menu_template_by_id_lambda.lambda_invoke_arn
   apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
