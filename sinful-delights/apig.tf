@@ -159,6 +159,7 @@ module "post_subscription" {
   lambda_arn  = module.post_subscription_lambda.lambda_function_arn
   lambda_invoke_arn = module.post_subscription_lambda.lambda_invoke_arn
   apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
+  create_options = false
 }
 
 # POST /v1/catering
@@ -192,6 +193,7 @@ module "get_admin_menu" {
   lambda_arn  = module.post_admin_menu_lambda.lambda_function_arn
   lambda_invoke_arn = module.post_admin_menu_lambda.lambda_invoke_arn
   apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
+  create_options = false
 }
 
 # GET /v1/admin/menus
