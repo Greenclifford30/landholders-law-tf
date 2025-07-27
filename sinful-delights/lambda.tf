@@ -79,7 +79,7 @@ module "get_admin_menu_by_id_lambda" {
 
 module "delete_admin_menu_by_id_lambda" {
   source            = "./modules/python_module"
-  function_name     = "${var.app}-delete-admin-menu-by-id-lambda"
+  function_name     = "${var.app}-delete-admin-menu-lambda"
   role_arn          = aws_iam_role.sinflul_delights_lambda_role.arn
   environment_variables = {
     TABLE_NAME = aws_dynamodb_table.menu.name
@@ -107,6 +107,15 @@ module "post_admin_menu_template_lambda" {
 module "get_admin_menu_template_lambda" {
   source            = "./modules/python_module"
   function_name     = "${var.app}-get-admin-menu-template-lambda"
+  role_arn          = aws_iam_role.sinflul_delights_lambda_role.arn
+  environment_variables = {
+    TABLE_NAME = aws_dynamodb_table.predefined_menu.name
+  }
+}
+
+module "get_admin_menu_templates_lambda" {
+  source            = "./modules/python_module"
+  function_name     = "${var.app}-get-admin-menu-templates-lambda"
   role_arn          = aws_iam_role.sinflul_delights_lambda_role.arn
   environment_variables = {
     TABLE_NAME = aws_dynamodb_table.predefined_menu.name
