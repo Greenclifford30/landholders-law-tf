@@ -48,3 +48,9 @@ variable "uri_param" {
   type = string
   default = ""
 }
+
+variable "create_options" {
+  type = bool
+  description = "Options should only be created if they don't exist"
+  default = true
+}
