@@ -1,23 +1,34 @@
 resource "aws_dynamodb_table" "menu" {
-  name           = "${var.app_upper_camel}Menu"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "menuId"
-  range_key      = "date"
+  name         = "${var.app_upper_camel}Menu"
+  billing_mode = "PAY_PER_REQUEST"
 
-  attribute {
-    name = "menuId"
-    type = "S"
+  # Primary key: all rows (header + items) live in the same partition (menuId)
+  hash_key  = "menuId"
+  range_key = "itemId"   # different SK per row (META for header, ITEM#uuid for items)
+
+  attribute { 
+    name = "menuId"   
+    type = "S" 
+  }
+  attribute { 
+    name = "itemId" 
+   type = "S" 
+   }
+  attribute { 
+    name = "menuDate"
+    type = "S" 
+  } # used for GSI queries (YYYY-MM-DD)
+
+  global_secondary_index {
+    name               = "GSI1MenuDate"
+    hash_key           = "menuDate"
+    range_key          = "itemId"         # lets you get header (META) first, items next
+    projection_type    = "ALL"
   }
 
-  attribute {
-    name = "date"
-    type = "S"
-  }
-
-  point_in_time_recovery {
-    enabled = true
-  }
+  point_in_time_recovery { enabled = true }
 }
+
 
 resource "aws_dynamodb_table" "menu_item" {
   name           = "${var.app_upper_camel}MenuItem"
