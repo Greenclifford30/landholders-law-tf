@@ -190,8 +190,8 @@ module "get_admin_menu" {
   api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
   resource_id = aws_api_gateway_resource.admin_menu.id
   http_method = "GET"
-  lambda_arn  = module.post_admin_menu_lambda.lambda_function_arn
-  lambda_invoke_arn = module.post_admin_menu_lambda.lambda_invoke_arn
+  lambda_arn  = module.get_admin_menu.lambda_function_arn
+  lambda_invoke_arn = module.get_admin_menu.lambda_invoke_arn
   apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
   create_options = false
 }
@@ -202,8 +202,8 @@ module "get_admin_menus" {
   api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
   resource_id = aws_api_gateway_resource.admin_menus.id
   http_method = "GET"
-  lambda_arn  = module.post_admin_menu_lambda.lambda_function_arn
-  lambda_invoke_arn = module.post_admin_menu_lambda.lambda_invoke_arn
+  lambda_arn  = module.get_admin_menus.lambda_function_arn
+  lambda_invoke_arn = module.get_admin_menus.lambda_invoke_arn
   apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
 }
 
