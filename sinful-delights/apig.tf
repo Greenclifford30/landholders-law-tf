@@ -220,6 +220,19 @@ module "get_admin_menu_by_id" {
   uri_param = "menuId"
 }
 
+# GET /v1/admin/menu/{menuId}
+module "put_admin_menu_by_id" {
+  source      = "./modules/apigateway_method"
+  api_id      = aws_api_gateway_rest_api.sinful_delights_api.id
+  resource_id = aws_api_gateway_resource.admin_menu_id.id
+  http_method = "PUT"
+  lambda_arn  = module.put_admin_menu_lambda.lambda_function_arn
+  lambda_invoke_arn = module.put_admin_menu_lambda.lambda_invoke_arn
+  apig_gateway_source_arn = aws_api_gateway_rest_api.sinful_delights_api.execution_arn
+  expect_uri_parameter = true
+  uri_param = "menuId"
+}
+
 # DELETE /v1/admin/menu/{menuId}
 module "delete_admin_menu_by_id" {
   source      = "./modules/apigateway_method"
