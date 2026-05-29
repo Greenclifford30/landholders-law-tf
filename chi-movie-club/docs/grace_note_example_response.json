@@ -1,0 +1,1448 @@
+[{
+    "tmsId": "MV027238580000",
+    "rootId": "31589873",
+    "subType": "Feature Film",
+    "title": "The Devil Wears Prada 2",
+    "releaseYear": 2026,
+    "releaseDate": "2026-04-29",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Comedy drama"],
+    "longDescription": "Miranda, Andy, Emily and Nigel return to the fashionable streets of New York City and the sleek offices of Runway Magazine.",
+    "shortDescription": "Miranda, Andy, Emily and Nigel return to the fashionable streets of New York and Runway Magazine.",
+    "topCast": ["Meryl Streep", "Anne Hathaway", "Emily Blunt"],
+    "directors": ["David Frankel"],
+    "officialUrl": "https://www.20thcenturystudios.com/movies/the-devil-wears-prada-2",
+    "qualityRating": {
+        "ratingsBody": "TMS",
+        "value": "2.5"
+    },
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "PG-13"
+    }],
+    "advisories": ["Adult Language", "Adult Situations"],
+    "runTime": "PT01H59M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p31589873_v_v11_aa.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T09:50",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=303972&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T13:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=303972&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T16:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=303972&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T19:10",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=303972&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T10:45",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=303972&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T14:05",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=303972&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T17:15",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=303972&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T20:25",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=303972&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV025068710000",
+    "rootId": "29249904",
+    "subType": "Feature Film",
+    "title": "Michael",
+    "releaseYear": 2026,
+    "releaseDate": "2026-04-24",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Biography", "Drama", "Music", "Pop", "Soul", "R&B", "Funk", "Rock"],
+    "longDescription": "The story of pop superstar Michael Jackson -- from his extraordinary early days in the Jackson 5 to the visionary artist whose creative ambition fuels a relentless pursuit to become the biggest entertainer in the world.",
+    "shortDescription": "Michael Jackson's creative ambition fuels a relentless pursuit to become the world's biggest star.",
+    "topCast": ["Jaafar Jackson", "Colman Domingo", "Nia Long"],
+    "directors": ["Antoine Fuqua"],
+    "qualityRating": {
+        "ratingsBody": "TMS",
+        "value": "2.5"
+    },
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "PG-13"
+    }],
+    "advisories": ["Adult Language", "Adult Situations"],
+    "runTime": "PT02H10M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p29249904_v_v12_ac.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T10:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T11:10",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T12:10",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T13:10",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T14:50",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T16:10",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T18:00",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T19:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T21:00",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T10:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T11:50",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T15:10",
+        "quals": "DN/CC|Lounger|SuperScreen",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T17:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T18:40",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T21:10",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281207&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T21:50",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281207&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV026908590000",
+    "rootId": "31207784",
+    "subType": "Feature Film",
+    "title": "The Super Mario Galaxy Movie",
+    "releaseYear": 2026,
+    "releaseDate": "2026-04-01",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Animated", "Family", "Comedy", "Adventure"],
+    "longDescription": "Mario, Luigi and Princess Peach embark on an adventure across the galaxy.",
+    "shortDescription": "Mario, Luigi and Princess Peach embark on an adventure across the galaxy.",
+    "topCast": ["Chris Pratt", "Anya Taylor-Joy", "Charlie Day"],
+    "directors": ["Aaron Horvath", "Michael Jelenic"],
+    "officialUrl": "https://www.thesupermariogalaxymovie.com/",
+    "qualityRating": {
+        "ratingsBody": "TMS",
+        "value": "2"
+    },
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "PG"
+    }],
+    "advisories": ["Adult Situations", "Mild Violence"],
+    "runTime": "PT01H38M",
+    "animation": "Animated",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p31207784_v_v12_aj.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T10:05",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=297917&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T15:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=297917&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T10:55",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=297917&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T11:50",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=297917&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T14:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=297917&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T16:50",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=297917&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T19:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=297917&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV027596740000",
+    "rootId": "32134261",
+    "subType": "Feature Film",
+    "title": "Passenger",
+    "releaseYear": 2026,
+    "releaseDate": "2026-05-20",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Horror", "Thriller"],
+    "longDescription": "A young couple witness a horrific accident that leaves the driver dead. They soon encounter a demonic stalker who's impossible to outrun and follows them wherever they go.",
+    "shortDescription": "A couple encounter a demonic stalker who's impossible to outrun and follows them wherever they go.",
+    "topCast": ["Jacob Scipio", "Lou Llobell", "Melissa Leo"],
+    "directors": ["Andr\u00e9 \u00d8vredal"],
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "R"
+    }],
+    "advisories": ["Adult Language", "Adult Situations", "Graphic Violence"],
+    "runTime": "PT01H34M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p32134261_v_v8_aa.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T10:10",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=311032&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T11:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=311032&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T13:50",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=311032&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T16:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=311032&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T18:50",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=311032&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T21:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=311032&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T11:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=311032&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T14:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=311032&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T17:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=311032&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T19:55",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=311032&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T22:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=311032&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV025781540000",
+    "rootId": "30036547",
+    "subType": "Feature Film",
+    "title": "Star Wars: The Mandalorian and Grogu",
+    "releaseYear": 2026,
+    "releaseDate": "2026-05-20",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Science fiction", "Adventure", "Action", "Fantasy"],
+    "longDescription": "The evil Empire has fallen but Imperial warlords remain scattered throughout the galaxy. As the fledgling New Republic works to protect everything the Rebellion fought for, they enlist the help of legendary Mandalorian bounty hunter Din Djarin and his young apprentice Grogu.",
+    "shortDescription": "The New Republic enlists the help of a legendary Mandalorian bounty hunter and his young apprentice.",
+    "topCast": ["Pedro Pascal", "Sigourney Weaver", "Jeremy Allen White"],
+    "directors": ["Jon Favreau"],
+    "officialUrl": "https://movies.disney.com/star-wars-the-mandalorian-and-grogu",
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "PG-13"
+    }],
+    "advisories": ["Adult Situations", "Violence"],
+    "runTime": "PT02H12M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p30036547_v_v8_ab.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T10:20",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T11:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T11:50",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T15:00",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T17:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T18:10",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T19:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T20:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T21:20",
+        "quals": "SuperScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T10:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T11:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T12:00",
+        "quals": "UltraScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T13:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T13:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T15:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T15:30",
+        "quals": "UltraScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T16:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T17:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T17:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T18:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T19:00",
+        "quals": "UltraScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T20:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T20:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T21:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T22:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T22:30",
+        "quals": "UltraScreen|Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=283043&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV025434220000",
+    "rootId": "29710973",
+    "sportsId": "145",
+    "subType": "Feature Film",
+    "title": "Mortal Kombat II",
+    "releaseYear": 2026,
+    "releaseDate": "2026-05-06",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Action", "Adventure", "Martial arts", "Fantasy"],
+    "longDescription": "Johnny Cage joins other fighters in the ultimate, no-holds-barred battle to defeat the dark rule of Shao Kahn, a powerful tyrant who threatens the very existence of the Earthrealm and its defenders.",
+    "shortDescription": "Johnny Cage joins other fighters in a no-holds-barred battle to defeat the dark rule of Shao Kahn.",
+    "topCast": ["Karl Urban", "Adeline Rudolph", "Jessica McNamee"],
+    "directors": ["Simon McQuoid"],
+    "officialUrl": "https://www.warnerbros.com/movies/mortal-kombat-ii",
+    "qualityRating": {
+        "ratingsBody": "TMS",
+        "value": "2.5"
+    },
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "R"
+    }],
+    "advisories": ["Adult Language", "Adult Situations", "Graphic Violence"],
+    "runTime": "PT01H56M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p29710973_v_v12_ad.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T10:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281818&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T13:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281818&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T17:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281818&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T20:10",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=281818&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T10:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281818&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T13:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281818&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T13:50",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281818&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T16:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281818&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T19:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281818&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T22:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=281818&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV027427270000",
+    "rootId": "31891094",
+    "subType": "Feature Film",
+    "title": "I Love Boosters",
+    "releaseYear": 2026,
+    "releaseDate": "2026-03-12",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Comedy", "Adventure"],
+    "longDescription": "Professional shoplifters embark on a wild adventure as they target a cutthroat fashion mogul.",
+    "shortDescription": "Professional shoplifters embark on a wild adventure as they target a cutthroat fashion mogul.",
+    "topCast": ["Keke Palmer", "Naomi Ackie", "Taylour Paige"],
+    "directors": ["Boots Riley"],
+    "officialUrl": "https://www.neonrated.com/film/i-love-boosters",
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "R"
+    }],
+    "advisories": ["Adult Language", "Adult Situations", "Nudity", "Strong Sexual Content"],
+    "runTime": "PT01H45M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p31891094_i_v8_aa.jpg?w=240&h=360",
+        "category": "Iconic",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T11:10",
+        "quals": "Lounger",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=309460&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T14:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=309460&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T16:50",
+        "quals": "Lounger",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=309460&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T19:40",
+        "quals": "Lounger",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=309460&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T10:10",
+        "quals": "Lounger",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=309460&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T12:10",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=309460&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T13:10",
+        "quals": "Lounger",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=309460&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T16:10",
+        "quals": "Lounger",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=309460&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T19:10",
+        "quals": "Lounger",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=309460&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T22:10",
+        "quals": "Lounger",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=309460&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV022313950000",
+    "rootId": "27683762",
+    "subType": "Feature Film",
+    "title": "The Sheep Detectives",
+    "releaseYear": 2026,
+    "releaseDate": "2026-05-08",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Family", "Comedy", "Mystery"],
+    "longDescription": "George Hardy is a shepherd who loves to read murder mysteries to his sheep, never suspecting that they can understand him. When George is found dead under mysterious circumstances, the sheep decide to solve the crime themselves, even if it means leaving their meadow for the first time and facing the fact that the human world isn't as simple as it appears in books.",
+    "shortDescription": "A flock of sheep leaves their meadow to investigate the mysterious death of their beloved shepherd.",
+    "topCast": ["Hugh Jackman", "Nicholas Braun", "Emma Thompson"],
+    "directors": ["Kyle Balda"],
+    "qualityRating": {
+        "ratingsBody": "TMS",
+        "value": "3.5"
+    },
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "PG"
+    }],
+    "advisories": ["Adult Language", "Adult Situations", "Violence"],
+    "runTime": "PT01H49M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p27683762_v_v8_ac.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T11:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=255218&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T14:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=255218&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T17:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=255218&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T20:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=255218&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV027092280000",
+    "rootId": "31406172",
+    "subType": "Feature Film",
+    "title": "Obsession",
+    "releaseYear": 2025,
+    "releaseDate": "2025-09-06",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Horror"],
+    "longDescription": "After breaking the mysterious \"One Wish Willow\" to win his crush's heart, a hopeless romantic gets exactly what he asked for. However, he soon discovers that some desires come at a dark and sinister price.",
+    "shortDescription": "Desire comes at a dark and sinister price when a man makes a wish to win his crush's heart.",
+    "topCast": ["Michael Johnston", "Inde Navarrette", "Cooper Tomlinson"],
+    "directors": ["Curry Barker"],
+    "officialUrl": "https://www.focusfeatures.com/obsession",
+    "qualityRating": {
+        "ratingsBody": "TMS",
+        "value": "3.5"
+    },
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "R"
+    }],
+    "advisories": ["Adult Language", "Adult Situations", "Graphic Violence", "Nudity"],
+    "runTime": "PT01H48M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p31406172_v_v8_ab.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T12:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=301373&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T15:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=301373&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T18:20",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=301373&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T21:10",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=301373&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T15:25",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=301373&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T18:35",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=301373&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T21:35",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=301373&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV026670050000",
+    "rootId": "30919040",
+    "subType": "Feature Film",
+    "title": "Is God Is",
+    "releaseYear": 2026,
+    "releaseDate": "2026-05-15",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Thriller"],
+    "longDescription": "Two sisters embark on an epic quest for revenge, confronting a charged family history that pushes them to extraordinary lengths.",
+    "shortDescription": "Vengeful sisters confront a charged family history that pushes them to extraordinary lengths.",
+    "topCast": ["Kara Young", "Mallori Johnson", "Vivica A. Fox"],
+    "directors": ["Aleshea Harris"],
+    "qualityRating": {
+        "ratingsBody": "TMS",
+        "value": "3.5"
+    },
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "R"
+    }],
+    "advisories": ["Adult Language", "Adult Situations", "Graphic Violence"],
+    "runTime": "PT01H39M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p30919040_v_v12_ab.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T12:45",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=294278&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T15:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=294278&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T18:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=294278&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T21:25",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=294278&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T11:55",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=294278&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T14:55",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=294278&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T17:55",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=294278&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T20:55",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=294278&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV022634590000",
+    "rootId": "28104823",
+    "subType": "Feature Film",
+    "title": "In the Grey",
+    "releaseYear": 2026,
+    "releaseDate": "2026-05-15",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Action", "Thriller"],
+    "longDescription": "A covert team of elite operatives embarks on a mission to steal back a billion-dollar fortune from a ruthless tyrant.",
+    "shortDescription": "Elite operatives embark on a mission to steal back a billion-dollar fortune from a ruthless tyrant.",
+    "topCast": ["Jake Gyllenhaal", "Henry Cavill", "Eiza Gonz\u00e1lez"],
+    "directors": ["Guy Ritchie"],
+    "qualityRating": {
+        "ratingsBody": "TMS",
+        "value": "2"
+    },
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "R"
+    }],
+    "advisories": ["Adult Language", "Adult Situations", "Violence"],
+    "runTime": "PT01H37M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p28104823_v_v12_ab.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T12:50",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=319113&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T22:25",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=319113&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV027691120000",
+    "rootId": "32295341",
+    "subType": "Feature Film",
+    "title": "Pressure",
+    "releaseYear": 2026,
+    "releaseDate": "2026-05-29",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Historical drama", "War"],
+    "longDescription": "The fate of the free world hangs in the balance as Gen. Dwight D. Eisenhower and Capt. James Stagg face an impossible choice -- launch the D-Day invasion or risk losing World War II altogether.",
+    "shortDescription": "Gen. Dwight D. Eisenhower and Capt. James Stagg prepare to launch the D-Day invasion.",
+    "topCast": ["Andrew Scott", "Brendan Fraser", "Kerry Condon"],
+    "directors": ["Anthony Maras"],
+    "officialUrl": "https://www.focusfeatures.com/pressure",
+    "ratings": [{
+        "body": "Motion Picture Association",
+        "code": "PG-13"
+    }],
+    "advisories": ["Adult Language", "Adult Situations", "Violence"],
+    "runTime": "PT01H40M",
+    "preferredImage": {
+        "width": "240",
+        "height": "360",
+        "uri": "assets/p32295341_v_v11_ab.jpg?w=240&h=360",
+        "category": "VOD Art",
+        "text": "yes",
+        "primary": "true"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T14:00",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=313657&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T14:00",
+        "quals": "DN/CC|Lounger",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=313657&d=2026-05-25"
+    }]
+}, {
+    "tmsId": "MV027857070000",
+    "rootId": "32591080",
+    "subType": "Feature Film",
+    "title": "Corporate Retreat",
+    "releaseYear": 2026,
+    "releaseDate": "2026",
+    "titleLang": "en",
+    "descriptionLang": "en",
+    "entityType": "Movie",
+    "genres": ["Horror", "Thriller"],
+    "longDescription": "Corporate executives on a team-building retreat face a deadly struggle when their leader turns violently against them.",
+    "shortDescription": "Corporate executives on a retreat face a deadly struggle when their leader turns against them.",
+    "topCast": ["Odeya Rush", "Rosanna Arquette", "Alan Ruck"],
+    "directors": ["Aaron Fisher"],
+    "advisories": ["Adult Language", "Adult Situations", "Graphic Violence"],
+    "runTime": "PT01H29M",
+    "preferredImage": {
+        "uri": "tvbanners/generic/generic_tvbanners_v5.png"
+    },
+    "showtimes": [{
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T18:40",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=320331&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "7597",
+            "name": "Marcus Chicago Heights Cinema"
+        },
+        "dateTime": "2026-05-25T21:30",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAFFF&m=320331&d=2026-05-25"
+    }, {
+        "theatre": {
+            "id": "11393",
+            "name": "Marcus Country Club Hills Cinema"
+        },
+        "dateTime": "2026-05-25T10:15",
+        "quals": "Lounger|DN/CC",
+        "barg": false,
+        "ticketURI": "http://www.fandango.com/tms.asp?t=AAXYD&m=320331&d=2026-05-25"
+    }]
+}]
