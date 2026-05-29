@@ -97,6 +97,18 @@ variable "movie_club_timezone" {
   default     = "America/Chicago"
 }
 
+variable "tmdb_secret_name" {
+  type        = string
+  description = "Secrets Manager secret name for the TMDB API token. The secret value is populated outside Terraform."
+  default     = "/cmc/production/tmdb/api-token"
+}
+
+variable "tmdb_base_url" {
+  type        = string
+  description = "Base URL for TMDB API calls."
+  default     = "https://api.themoviedb.org/3"
+}
+
 variable "gracenote_refresh_schedule_enabled" {
   type        = bool
   description = "Whether the scheduled Gracenote showtime refresh is enabled."

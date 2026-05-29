@@ -178,14 +178,24 @@ resource "aws_lambda_function" "app_handlers" {
   for_each = local.app_lambda_handlers
 
   function_name = each.value.function_name
-  role          = aws_iam_role.lambda_role.arn
+  role          = each.key == "movie_search" ? aws_iam_role.movie_search_lambda_role.arn : aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
   handler       = "app.handler"
   filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
 
   environment {
-    variables = {
-      APP_TABLE_NAME = aws_dynamodb_table.app.name
-    }
+    variables = merge(
+      {
+        APP_TABLE_NAME = aws_dynamodb_table.app.name
+      },
+      each.key == "movie_search" ? {
+        TMDB_SECRET_ARN = aws_secretsmanager_secret.tmdb_api_token.arn
+        TMDB_BASE_URL   = var.tmdb_base_url
+      } : {}
+    )
+  }
+
+  lifecycle {
+    ignore_changes = [filename]
   }
 }

@@ -13,6 +13,13 @@ resource "aws_secretsmanager_secret" "gracenote_api_key" {
   tags = local.common_tags
 }
 
+resource "aws_secretsmanager_secret" "tmdb_api_token" {
+  name        = var.tmdb_secret_name
+  description = "Stores the TMDB API token for Movie Club movie search. Populate the secret value outside Terraform."
+
+  tags = local.common_tags
+}
+
 resource "aws_cloudwatch_event_rule" "gracenote_showtime_refresh" {
   name                = "${var.app}-gracenote-showtime-refresh"
   description         = "Scheduled Gracenote showtime refresh for Movie Club."

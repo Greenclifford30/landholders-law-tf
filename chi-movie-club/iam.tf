@@ -79,6 +79,42 @@ resource "aws_iam_role_policy_attachment" "attach" {
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
+resource "aws_iam_role" "movie_search_lambda_role" {
+  name               = "${var.app}-movie-search-role"
+  assume_role_policy = data.aws_iam_policy_document.lambda_trust.json
+
+  tags = local.common_tags
+}
+
+resource "aws_iam_role_policy_attachment" "movie_search_basic_execution" {
+  role       = aws_iam_role.movie_search_lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+resource "aws_iam_policy" "movie_search_lambda_policy" {
+  name        = "${var.app}-movie-search-policy"
+  path        = "/"
+  description = "IAM policy for Movie Club movie search Lambda."
+
+  policy = data.aws_iam_policy_document.movie_search_lambda_policy.json
+
+  tags = local.common_tags
+}
+
+data "aws_iam_policy_document" "movie_search_lambda_policy" {
+  statement {
+    actions = [
+      "secretsmanager:GetSecretValue",
+    ]
+    resources = [aws_secretsmanager_secret.tmdb_api_token.arn]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "movie_search_attach" {
+  role       = aws_iam_role.movie_search_lambda_role.name
+  policy_arn = aws_iam_policy.movie_search_lambda_policy.arn
+}
+
 resource "aws_iam_role" "gracenote_showtime_coordinator_lambda_role" {
   name               = "${var.app}-gracenote-showtime-coordinator-role"
   assume_role_policy = data.aws_iam_policy_document.lambda_trust.json
