@@ -1,14 +1,46 @@
+locals {
+  app_lambda_handlers = {
+    movie_search = {
+      function_name = "${var.app}-movie-search-lambda"
+    }
+    create_movie_night = {
+      function_name = "${var.app}-create-movie-night-lambda"
+    }
+    get_active_movie_night = {
+      function_name = "${var.app}-get-active-movie-night-lambda"
+    }
+    manage_showtimes = {
+      function_name = "${var.app}-manage-showtimes-lambda"
+    }
+    submit_vote = {
+      function_name = "${var.app}-submit-vote-lambda"
+    }
+    vote_results = {
+      function_name = "${var.app}-vote-results-lambda"
+    }
+    confirm_showtime = {
+      function_name = "${var.app}-confirm-showtime-lambda"
+    }
+    update_rsvp = {
+      function_name = "${var.app}-update-rsvp-lambda"
+    }
+    list_history = {
+      function_name = "${var.app}-list-history-lambda"
+    }
+  }
+}
+
 resource "aws_lambda_function" "admin_selection" {
   function_name = "${var.app}-admin-selection-lambda"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
-  handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
+  handler       = "app.handler"
   filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
 
   environment {
     variables = {
-            ADMIN_SELECTION_QUEUE_URL = aws_sqs_queue.admin_selection.id
-
+      ADMIN_SELECTION_QUEUE_URL = aws_sqs_queue.admin_selection.id
+      APP_TABLE_NAME            = aws_dynamodb_table.app.name
     }
   }
 }
@@ -17,15 +49,77 @@ resource "aws_lambda_function" "movie_scraper" {
   function_name = "${var.app}-movie-scraper-lambda"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
-  handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
+  handler       = "app.handler"
   filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
   timeout       = 60
+
   environment {
     variables = {
-            MOVIE_SHOWTIME_OPTIONS_TABLE = "${var.app}_movie_showtime_options"
-
+      APP_TABLE_NAME                = aws_dynamodb_table.app.name
+      MOVIE_SHOWTIME_OPTIONS_TABLE  = aws_dynamodb_table.app.name
     }
   }
+}
+
+resource "aws_lambda_function" "gracenote_showtime_coordinator" {
+  function_name = "${var.app}-gracenote-showtime-coordinator-lambda"
+  role          = aws_iam_role.gracenote_showtime_coordinator_lambda_role.arn
+  runtime       = "python3.13"
+  handler       = "app.handler"
+  filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
+  timeout       = var.gracenote_coordinator_timeout_seconds
+  memory_size   = var.gracenote_coordinator_memory_size
+
+  environment {
+    variables = {
+      APP_TABLE_NAME                 = aws_dynamodb_table.app.name
+      SHOWTIME_REFRESH_QUEUE_URL     = aws_sqs_queue.gracenote_showtime_refresh_queue.id
+      GRACENOTE_DEFAULT_ZIP          = var.gracenote_default_zip
+      GRACENOTE_DEFAULT_RADIUS       = tostring(var.gracenote_default_radius)
+      GRACENOTE_DEFAULT_NUM_DAYS     = tostring(var.gracenote_default_num_days)
+      GRACENOTE_UNITS                = var.gracenote_units
+      MOVIE_CLUB_TIMEZONE            = var.movie_club_timezone
+      LOG_LEVEL                      = "INFO"
+    }
+  }
+
+  tags = local.common_tags
+}
+
+resource "aws_lambda_function" "gracenote_showtime_worker" {
+  function_name = "${var.app}-gracenote-showtime-worker-lambda"
+  role          = aws_iam_role.gracenote_showtime_worker_lambda_role.arn
+  runtime       = "python3.13"
+  handler       = "app.handler"
+  filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
+  timeout       = var.gracenote_worker_timeout_seconds
+  memory_size   = var.gracenote_worker_memory_size
+
+  environment {
+    variables = {
+      APP_TABLE_NAME             = aws_dynamodb_table.app.name
+      GRACENOTE_SECRET_ARN       = aws_secretsmanager_secret.gracenote_api_key.arn
+      GRACENOTE_BASE_URL         = var.gracenote_base_url
+      GRACENOTE_DEFAULT_ZIP      = var.gracenote_default_zip
+      GRACENOTE_DEFAULT_RADIUS   = tostring(var.gracenote_default_radius)
+      GRACENOTE_DEFAULT_NUM_DAYS = tostring(var.gracenote_default_num_days)
+      GRACENOTE_UNITS            = var.gracenote_units
+      GRACENOTE_IMAGE_SIZE       = var.gracenote_image_size
+      GRACENOTE_IMAGE_TEXT       = tostring(var.gracenote_image_text)
+      MOVIE_CLUB_TIMEZONE        = var.movie_club_timezone
+      LOG_LEVEL                  = "INFO"
+    }
+  }
+
+  tags = local.common_tags
+}
+
+resource "aws_lambda_event_source_mapping" "gracenote_showtime_refresh_sqs_trigger" {
+  event_source_arn                   = aws_sqs_queue.gracenote_showtime_refresh_queue.arn
+  function_name                      = aws_lambda_function.gracenote_showtime_worker.arn
+  batch_size                         = 5
+  maximum_batching_window_in_seconds = 10
+  enabled                            = true
 }
 
 resource "aws_lambda_event_source_mapping" "admin_selection_sqs_trigger" {
@@ -35,33 +129,32 @@ resource "aws_lambda_event_source_mapping" "admin_selection_sqs_trigger" {
   enabled          = true
 }
 
-
 resource "aws_lambda_function" "vote_handler" {
   function_name = "${var.app}-vote-handler"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
-  handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
+  handler       = "app.handler"
   filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
-
 
   environment {
     variables = {
-      VOTE_TABLE = "UserVotes"
+      APP_TABLE_NAME = aws_dynamodb_table.app.name
+      VOTE_TABLE     = aws_dynamodb_table.app.name
     }
   }
 }
-
 
 resource "aws_lambda_function" "get_selection" {
   function_name = "${var.app}-get-selection-lambda"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
-  handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
+  handler       = "app.handler"
   filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
 
   environment {
     variables = {
-        MOVIE_SHOWTIME_OPTIONS_TABLE = "${var.app}_movie_showtime_options"
+      APP_TABLE_NAME               = aws_dynamodb_table.app.name
+      MOVIE_SHOWTIME_OPTIONS_TABLE = aws_dynamodb_table.app.name
     }
   }
 }
@@ -70,11 +163,29 @@ resource "aws_lambda_function" "get_options" {
   function_name = "${var.app}-get-options-lambda"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
-  handler       = "app.handler"   # We'll define a trivial handler in the placeholder zip
+  handler       = "app.handler"
   filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
+
   environment {
     variables = {
-        MOVIE_SHOWTIME_OPTIONS_TABLE = "${var.app}_movie_showtime_options"
+      APP_TABLE_NAME               = aws_dynamodb_table.app.name
+      MOVIE_SHOWTIME_OPTIONS_TABLE = aws_dynamodb_table.app.name
+    }
+  }
+}
+
+resource "aws_lambda_function" "app_handlers" {
+  for_each = local.app_lambda_handlers
+
+  function_name = each.value.function_name
+  role          = aws_iam_role.lambda_role.arn
+  runtime       = "python3.13"
+  handler       = "app.handler"
+  filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
+
+  environment {
+    variables = {
+      APP_TABLE_NAME = aws_dynamodb_table.app.name
     }
   }
 }
