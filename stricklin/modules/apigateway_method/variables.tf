@@ -38,7 +38,6 @@ variable "apig_gateway_source_arn" {
   description = "api gateway source arn"
   type = string
 }
-
 variable "expect_uri_parameter" {
   type = bool
   default = false
@@ -49,8 +48,19 @@ variable "uri_param" {
   default = ""
 }
 
-variable "create_options" {
-  type = bool
-  description = "Options should only be created if they don't exist"
-  default = true
+variable "allowed_origin" {
+  description = "Origin allowed for CORS"
+  default     = "*"
+}
+
+variable "allowed_methods" {
+  description = "List of HTTP methods allowed for CORS"
+  type        = list(string)
+  default     = ["GET", "POST", "OPTIONS", "PUT", "DELETE"]
+}
+
+variable "allowed_headers" {
+  description = "List of headers allowed for CORS"
+  type        = list(string)
+  default     = ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key"]
 }

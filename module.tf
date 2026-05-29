@@ -16,3 +16,7 @@ module "sinflul_delights" {
   source = "./sinful-delights"
   google_verification_value = ""
 }
+
+module "stricklin" {
+  source = "./stricklin"
+}

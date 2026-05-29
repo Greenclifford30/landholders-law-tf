@@ -1,7 +1,7 @@
 ###########################
 # IAM Role for the Lambda
 ###########################
-resource "aws_iam_role" "sinflul_delights_lambda_role" {
+resource "aws_iam_role" "stricklin_lambda_role" {
   name               = "${var.app}-lambda-role"
   assume_role_policy = data.aws_iam_policy_document.lambda_trust.json
 }
@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "lambda_trust" {
 # policy (for CloudWatch Logs, etc.)
 ####################################
 resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
-  role       = aws_iam_role.sinflul_delights_lambda_role.name
+  role       = aws_iam_role.stricklin_lambda_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
@@ -54,13 +54,12 @@ data "aws_iam_policy_document" "policy" {
           "dynamodb:Query",
           "dynamodb:Scan"
     ]
-    resources = [
-      aws_dynamodb_table.menu.arn, "${aws_dynamodb_table.menu.arn}/*", aws_dynamodb_table.menu_item.arn, aws_dynamodb_table.predefined_menu.arn, aws_dynamodb_table.order.arn, aws_dynamodb_table.catering_request.arn]
+    resources = [aws_dynamodb_table.attendees.arn]
     
   }
 }
 
 resource "aws_iam_role_policy_attachment" "policy_attach" {
-  role       = aws_iam_role.sinflul_delights_lambda_role.name
+  role       = aws_iam_role.stricklin_lambda_role.name
   policy_arn = aws_iam_policy.lambda_policy.arn
 }

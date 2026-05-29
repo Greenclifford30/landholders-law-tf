@@ -28,6 +28,11 @@ variable "app" {
   default = "sinful-delights"
 }
 
+variable "app_upper_camel" {
+  type = string
+  description = "application name"
+  default = "SinfulDelights"
+}
 variable "app_underscore" {
   type = string
   description = "application name"
