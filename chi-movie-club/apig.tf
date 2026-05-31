@@ -15,6 +15,10 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.movies_search.id,
       aws_api_gateway_resource.clubs.id,
       aws_api_gateway_resource.club_id.id,
+      aws_api_gateway_resource.club_invites.id,
+      aws_api_gateway_resource.invites.id,
+      aws_api_gateway_resource.invite_token.id,
+      aws_api_gateway_resource.invite_accept.id,
       aws_api_gateway_resource.club_movie_nights.id,
       aws_api_gateway_resource.club_movie_nights_active.id,
       aws_api_gateway_resource.club_movie_nights_history.id,
@@ -29,6 +33,12 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.admin_showtimes_gracenote.id,
       aws_api_gateway_resource.admin_showtimes_gracenote_refresh.id,
       aws_api_gateway_method.get_movies_search.id,
+      aws_api_gateway_method.get_clubs.id,
+      aws_api_gateway_method.post_clubs.id,
+      aws_api_gateway_method.post_club_invites.id,
+      aws_api_gateway_method.get_club_invites.id,
+      aws_api_gateway_method.get_invite.id,
+      aws_api_gateway_method.post_accept_invite.id,
       aws_api_gateway_method.post_club_movie_nights.id,
       aws_api_gateway_method.get_active_movie_night.id,
       aws_api_gateway_method.get_movie_night_history.id,
@@ -39,6 +49,12 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.put_movie_night_rsvp.id,
       aws_api_gateway_method.post_admin_showtimes_gracenote_refresh.id,
       aws_api_gateway_integration.get_movies_search_integration.id,
+      aws_api_gateway_integration.get_clubs_integration.id,
+      aws_api_gateway_integration.post_clubs_integration.id,
+      aws_api_gateway_integration.post_club_invites_integration.id,
+      aws_api_gateway_integration.get_club_invites_integration.id,
+      aws_api_gateway_integration.get_invite_integration.id,
+      aws_api_gateway_integration.post_accept_invite_integration.id,
       aws_api_gateway_integration.post_club_movie_nights_integration.id,
       aws_api_gateway_integration.get_active_movie_night_integration.id,
       aws_api_gateway_integration.get_movie_night_history_integration.id,
@@ -63,6 +79,12 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.get_selection_integration,
     aws_api_gateway_integration.get_options_integration,
     aws_api_gateway_integration.get_movies_search_integration,
+    aws_api_gateway_integration.get_clubs_integration,
+    aws_api_gateway_integration.post_clubs_integration,
+    aws_api_gateway_integration.post_club_invites_integration,
+    aws_api_gateway_integration.get_club_invites_integration,
+    aws_api_gateway_integration.get_invite_integration,
+    aws_api_gateway_integration.post_accept_invite_integration,
     aws_api_gateway_integration.post_club_movie_nights_integration,
     aws_api_gateway_integration.get_active_movie_night_integration,
     aws_api_gateway_integration.get_movie_night_history_integration,
@@ -146,6 +168,30 @@ resource "aws_api_gateway_resource" "club_id" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_resource.clubs.id
   path_part   = "{clubId}"
+}
+
+resource "aws_api_gateway_resource" "club_invites" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.club_id.id
+  path_part   = "invites"
+}
+
+resource "aws_api_gateway_resource" "invites" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_rest_api.chimovieclub_api.root_resource_id
+  path_part   = "invites"
+}
+
+resource "aws_api_gateway_resource" "invite_token" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.invites.id
+  path_part   = "{token}"
+}
+
+resource "aws_api_gateway_resource" "invite_accept" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.invite_token.id
+  path_part   = "accept"
 }
 
 resource "aws_api_gateway_resource" "club_movie_nights" {

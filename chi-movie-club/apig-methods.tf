@@ -121,6 +121,10 @@ resource "aws_lambda_permission" "allow_apig_gracenote_showtime_coordinator" {
 locals {
   cors_resources = {
     movies_search              = aws_api_gateway_resource.movies_search.id
+    clubs                      = aws_api_gateway_resource.clubs.id
+    club_invites               = aws_api_gateway_resource.club_invites.id
+    invite_token               = aws_api_gateway_resource.invite_token.id
+    invite_accept              = aws_api_gateway_resource.invite_accept.id
     club_movie_nights          = aws_api_gateway_resource.club_movie_nights.id
     club_movie_nights_active   = aws_api_gateway_resource.club_movie_nights_active.id
     club_movie_nights_history  = aws_api_gateway_resource.club_movie_nights_history.id
@@ -183,6 +187,113 @@ resource "aws_api_gateway_integration_response" "cors_options_integration_respon
     "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,PUT,OPTIONS'"
     "method.response.header.Access-Control-Allow-Origin"  = "'*'"
   }
+}
+
+# GET /clubs
+resource "aws_api_gateway_method" "get_clubs" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.clubs.id
+  http_method   = "GET"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "get_clubs_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.clubs.id
+  http_method             = aws_api_gateway_method.get_clubs.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_clubs"].invoke_arn
+}
+
+# POST /clubs
+resource "aws_api_gateway_method" "post_clubs" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.clubs.id
+  http_method   = "POST"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "post_clubs_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.clubs.id
+  http_method             = aws_api_gateway_method.post_clubs.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_clubs"].invoke_arn
+}
+
+# POST /clubs/{clubId}/invites
+resource "aws_api_gateway_method" "post_club_invites" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.club_invites.id
+  http_method   = "POST"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "post_club_invites_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.club_invites.id
+  http_method             = aws_api_gateway_method.post_club_invites.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_invites"].invoke_arn
+}
+
+# GET /clubs/{clubId}/invites
+resource "aws_api_gateway_method" "get_club_invites" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.club_invites.id
+  http_method   = "GET"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "get_club_invites_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.club_invites.id
+  http_method             = aws_api_gateway_method.get_club_invites.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_invites"].invoke_arn
+}
+
+# GET /invites/{token}
+resource "aws_api_gateway_method" "get_invite" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.invite_token.id
+  http_method   = "GET"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "get_invite_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.invite_token.id
+  http_method             = aws_api_gateway_method.get_invite.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_invites"].invoke_arn
+}
+
+# POST /invites/{token}/accept
+resource "aws_api_gateway_method" "post_accept_invite" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.invite_accept.id
+  http_method   = "POST"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "post_accept_invite_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.invite_accept.id
+  http_method             = aws_api_gateway_method.post_accept_invite.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_invites"].invoke_arn
 }
 
 # GET /movies/search

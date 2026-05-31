@@ -27,6 +27,12 @@ locals {
     list_history = {
       function_name = "${var.app}-list-history-lambda"
     }
+    manage_clubs = {
+      function_name = "${var.app}-manage-clubs-lambda"
+    }
+    manage_invites = {
+      function_name = "${var.app}-manage-invites-lambda"
+    }
   }
 }
 
@@ -191,6 +197,10 @@ resource "aws_lambda_function" "app_handlers" {
       each.key == "movie_search" ? {
         TMDB_SECRET_ARN = aws_secretsmanager_secret.tmdb_api_token.arn
         TMDB_BASE_URL   = var.tmdb_base_url
+      } : {},
+      each.key == "manage_invites" ? {
+        APP_BASE_URL      = var.movie_club_app_base_url
+        INVITE_EMAIL_FROM = var.movie_club_invite_email_from
       } : {}
     )
   }

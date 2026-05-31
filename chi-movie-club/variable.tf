@@ -109,6 +109,18 @@ variable "tmdb_base_url" {
   default     = "https://api.themoviedb.org/3"
 }
 
+variable "movie_club_app_base_url" {
+  type        = string
+  description = "Public Movie Club app URL used in invite links."
+  default     = "http://localhost:3000"
+}
+
+variable "movie_club_invite_email_from" {
+  type        = string
+  description = "Verified SES sender email address for Movie Club invite emails. If empty, invite records are created without sending email."
+  default     = ""
+}
+
 variable "gracenote_refresh_schedule_enabled" {
   type        = bool
   description = "Whether the scheduled Gracenote showtime refresh is enabled."

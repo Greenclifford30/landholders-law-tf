@@ -53,7 +53,7 @@ resource "aws_dynamodb_table" "app" {
   }
 
   ttl {
-    attribute_name = "expiresAt"
+    attribute_name = "expiresAtEpoch"
     enabled        = true
   }
 
