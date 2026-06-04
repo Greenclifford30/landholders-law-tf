@@ -35,6 +35,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.admin_showtimes.id,
       aws_api_gateway_resource.admin_showtimes_gracenote.id,
       aws_api_gateway_resource.admin_showtimes_gracenote_refresh.id,
+      aws_api_gateway_resource.admin_showtimes_gracenote_search.id,
       aws_api_gateway_method.get_movies_search.id,
       aws_api_gateway_method.get_movies_now_playing.id,
       aws_api_gateway_method.get_clubs.id,
@@ -52,6 +53,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.post_movie_night_confirm.id,
       aws_api_gateway_method.put_movie_night_rsvp.id,
       aws_api_gateway_method.post_admin_showtimes_gracenote_refresh.id,
+      aws_api_gateway_method.get_admin_showtimes_gracenote_search.id,
       aws_api_gateway_integration.get_movies_search_integration.id,
       aws_api_gateway_integration.get_movies_now_playing_integration.id,
       aws_api_gateway_integration.get_clubs_integration.id,
@@ -69,6 +71,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_integration.post_movie_night_confirm_integration.id,
       aws_api_gateway_integration.put_movie_night_rsvp_integration.id,
       aws_api_gateway_integration.post_admin_showtimes_gracenote_refresh_integration.id,
+      aws_api_gateway_integration.get_admin_showtimes_gracenote_search_integration.id,
       aws_api_gateway_authorizer.cognito.id,
       values(aws_api_gateway_integration.cors_options_integration)[*].id,
     ]))
@@ -100,6 +103,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.post_movie_night_confirm_integration,
     aws_api_gateway_integration.put_movie_night_rsvp_integration,
     aws_api_gateway_integration.post_admin_showtimes_gracenote_refresh_integration,
+    aws_api_gateway_integration.get_admin_showtimes_gracenote_search_integration,
     aws_api_gateway_integration.cors_options_integration,
   ]
 }
@@ -140,6 +144,12 @@ resource "aws_api_gateway_resource" "admin_showtimes_gracenote_refresh" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_resource.admin_showtimes_gracenote.id
   path_part   = "refresh"
+}
+
+resource "aws_api_gateway_resource" "admin_showtimes_gracenote_search" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.admin_showtimes_gracenote.id
+  path_part   = "search"
 }
 
 resource "aws_api_gateway_resource" "vote" {

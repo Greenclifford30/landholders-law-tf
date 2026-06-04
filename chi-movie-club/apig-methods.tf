@@ -95,6 +95,25 @@ resource "aws_api_gateway_integration" "post_admin_showtimes_gracenote_refresh_i
   uri                     = aws_lambda_function.gracenote_showtime_coordinator.invoke_arn
 }
 
+# GET /admin/showtimes/gracenote/search
+resource "aws_api_gateway_method" "get_admin_showtimes_gracenote_search" {
+  rest_api_id      = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id      = aws_api_gateway_resource.admin_showtimes_gracenote_search.id
+  http_method      = "GET"
+  authorization    = "COGNITO_USER_POOLS"
+  authorizer_id    = aws_api_gateway_authorizer.cognito.id
+  api_key_required = true
+}
+
+resource "aws_api_gateway_integration" "get_admin_showtimes_gracenote_search_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.admin_showtimes_gracenote_search.id
+  http_method             = aws_api_gateway_method.get_admin_showtimes_gracenote_search.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.gracenote_showtime_coordinator.invoke_arn
+}
+
 resource "aws_lambda_permission" "allow_apig" {
   for_each = {
     admin_selection = aws_lambda_function.admin_selection
@@ -118,6 +137,14 @@ resource "aws_lambda_permission" "allow_apig_gracenote_showtime_coordinator" {
   source_arn    = "${aws_api_gateway_rest_api.chimovieclub_api.execution_arn}/*/POST/admin/showtimes/gracenote/refresh"
 }
 
+resource "aws_lambda_permission" "allow_apig_gracenote_showtime_search" {
+  statement_id  = "AllowAPIGatewayInvoke-gracenote-showtime-search"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.gracenote_showtime_coordinator.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.chimovieclub_api.execution_arn}/*/GET/admin/showtimes/gracenote/search"
+}
+
 locals {
   cors_resources = {
     movies_search              = aws_api_gateway_resource.movies_search.id
@@ -135,6 +162,7 @@ locals {
     movie_night_confirm        = aws_api_gateway_resource.movie_night_confirm.id
     movie_night_rsvp           = aws_api_gateway_resource.movie_night_rsvp.id
     admin_gracenote_refresh    = aws_api_gateway_resource.admin_showtimes_gracenote_refresh.id
+    admin_gracenote_search     = aws_api_gateway_resource.admin_showtimes_gracenote_search.id
   }
 }
 
