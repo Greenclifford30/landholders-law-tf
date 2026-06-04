@@ -1,6 +1,8 @@
 resource "aws_sqs_queue" "admin_selection" {
   name                       = "${var.app}-admin-selection-queue"
   visibility_timeout_seconds = 120
+
+  tags = local.common_tags
 }
 
 resource "aws_sqs_queue" "gracenote_showtime_refresh_dlq" {

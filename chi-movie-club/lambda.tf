@@ -34,6 +34,31 @@ locals {
       function_name = "${var.app}-manage-invites-lambda"
     }
   }
+
+  lambda_log_group_names = merge(
+    {
+      admin_selection                = "/aws/lambda/${var.app}-admin-selection-lambda"
+      movie_scraper                  = "/aws/lambda/${var.app}-movie-scraper-lambda"
+      gracenote_showtime_coordinator = "/aws/lambda/${var.app}-gracenote-showtime-coordinator-lambda"
+      gracenote_showtime_worker      = "/aws/lambda/${var.app}-gracenote-showtime-worker-lambda"
+      vote_handler                   = "/aws/lambda/${var.app}-vote-handler"
+      get_selection                  = "/aws/lambda/${var.app}-get-selection-lambda"
+      get_options                    = "/aws/lambda/${var.app}-get-options-lambda"
+    },
+    {
+      for name, handler in local.app_lambda_handlers :
+      name => "/aws/lambda/${handler.function_name}"
+    }
+  )
+}
+
+resource "aws_cloudwatch_log_group" "lambda" {
+  for_each = local.lambda_log_group_names
+
+  name              = each.value
+  retention_in_days = var.lambda_log_retention_days
+
+  tags = local.common_tags
 }
 
 resource "aws_lambda_function" "admin_selection" {
@@ -49,6 +74,8 @@ resource "aws_lambda_function" "admin_selection" {
       APP_TABLE_NAME            = aws_dynamodb_table.app.name
     }
   }
+
+  tags = local.common_tags
 }
 
 resource "aws_lambda_function" "movie_scraper" {
@@ -65,6 +92,8 @@ resource "aws_lambda_function" "movie_scraper" {
       MOVIE_SHOWTIME_OPTIONS_TABLE  = aws_dynamodb_table.app.name
     }
   }
+
+  tags = local.common_tags
 }
 
 resource "aws_lambda_function" "gracenote_showtime_coordinator" {
@@ -148,6 +177,8 @@ resource "aws_lambda_function" "vote_handler" {
       VOTE_TABLE     = aws_dynamodb_table.app.name
     }
   }
+
+  tags = local.common_tags
 }
 
 resource "aws_lambda_function" "get_selection" {
@@ -163,6 +194,8 @@ resource "aws_lambda_function" "get_selection" {
       MOVIE_SHOWTIME_OPTIONS_TABLE = aws_dynamodb_table.app.name
     }
   }
+
+  tags = local.common_tags
 }
 
 resource "aws_lambda_function" "get_options" {
@@ -178,6 +211,8 @@ resource "aws_lambda_function" "get_options" {
       MOVIE_SHOWTIME_OPTIONS_TABLE = aws_dynamodb_table.app.name
     }
   }
+
+  tags = local.common_tags
 }
 
 resource "aws_lambda_function" "app_handlers" {
@@ -208,4 +243,6 @@ resource "aws_lambda_function" "app_handlers" {
   lifecycle {
     ignore_changes = [filename]
   }
+
+  tags = local.common_tags
 }

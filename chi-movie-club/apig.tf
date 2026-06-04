@@ -4,6 +4,8 @@
 resource "aws_api_gateway_rest_api" "chimovieclub_api" {
   name        = "${var.app}-api"
   description = "Handles One Way Chi Movie Club API requests"
+
+  tags = local.common_tags
 }
 
 resource "aws_api_gateway_deployment" "cmc_deployment" {
@@ -13,6 +15,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.movies.id,
       aws_api_gateway_resource.movies_search.id,
+      aws_api_gateway_resource.movies_now_playing.id,
       aws_api_gateway_resource.clubs.id,
       aws_api_gateway_resource.club_id.id,
       aws_api_gateway_resource.club_invites.id,
@@ -33,6 +36,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.admin_showtimes_gracenote.id,
       aws_api_gateway_resource.admin_showtimes_gracenote_refresh.id,
       aws_api_gateway_method.get_movies_search.id,
+      aws_api_gateway_method.get_movies_now_playing.id,
       aws_api_gateway_method.get_clubs.id,
       aws_api_gateway_method.post_clubs.id,
       aws_api_gateway_method.post_club_invites.id,
@@ -49,6 +53,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.put_movie_night_rsvp.id,
       aws_api_gateway_method.post_admin_showtimes_gracenote_refresh.id,
       aws_api_gateway_integration.get_movies_search_integration.id,
+      aws_api_gateway_integration.get_movies_now_playing_integration.id,
       aws_api_gateway_integration.get_clubs_integration.id,
       aws_api_gateway_integration.post_clubs_integration.id,
       aws_api_gateway_integration.post_club_invites_integration.id,
@@ -79,6 +84,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.get_selection_integration,
     aws_api_gateway_integration.get_options_integration,
     aws_api_gateway_integration.get_movies_search_integration,
+    aws_api_gateway_integration.get_movies_now_playing_integration,
     aws_api_gateway_integration.get_clubs_integration,
     aws_api_gateway_integration.post_clubs_integration,
     aws_api_gateway_integration.post_club_invites_integration,
@@ -102,6 +108,8 @@ resource "aws_api_gateway_stage" "development" {
   deployment_id = aws_api_gateway_deployment.cmc_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
   stage_name    = "development"
+
+  tags = local.common_tags
 }
 
 resource "aws_api_gateway_resource" "admin" {
@@ -156,6 +164,12 @@ resource "aws_api_gateway_resource" "movies_search" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_resource.movies.id
   path_part   = "search"
+}
+
+resource "aws_api_gateway_resource" "movies_now_playing" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.movies.id
+  path_part   = "now-playing"
 }
 
 resource "aws_api_gateway_resource" "clubs" {
@@ -274,12 +288,16 @@ resource "aws_api_gateway_usage_plan" "chimovieclub_usage_plan" {
     api_id = aws_api_gateway_rest_api.chimovieclub_api.id
     stage  = aws_api_gateway_stage.development.stage_name
   }
+
+  tags = local.common_tags
 }
 
 resource "aws_api_gateway_api_key" "chimovieclub_api_key" {
   name        = "${var.app}-api-key"
   description = "API key for one way electric endpoints"
   enabled     = true
+
+  tags = local.common_tags
 }
 
 resource "aws_api_gateway_usage_plan_key" "chimovieclub_law_api_key" {

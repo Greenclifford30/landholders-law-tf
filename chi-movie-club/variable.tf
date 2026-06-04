@@ -124,7 +124,7 @@ variable "movie_club_invite_email_from" {
 variable "gracenote_refresh_schedule_enabled" {
   type        = bool
   description = "Whether the scheduled Gracenote showtime refresh is enabled."
-  default     = true
+  default     = false
 }
 
 variable "gracenote_refresh_schedule_expression" {
@@ -155,4 +155,28 @@ variable "gracenote_coordinator_memory_size" {
   type        = number
   description = "Memory size in MB for the Gracenote showtime coordinator Lambda."
   default     = 256
+}
+
+variable "dynamodb_point_in_time_recovery_enabled" {
+  type        = bool
+  description = "Whether DynamoDB point-in-time recovery is enabled. Keep false during tiny launch; enable before broader public availability if vote/history recovery matters."
+  default     = false
+}
+
+variable "lambda_log_retention_days" {
+  type        = number
+  description = "CloudWatch Logs retention in days for Chi Movie Club Lambda log groups."
+  default     = 14
+}
+
+variable "monthly_budget_limit_usd" {
+  type        = string
+  description = "Low monthly spend guardrail for Chi Movie Club tagged resources."
+  default     = "10"
+}
+
+variable "critical_monthly_budget_limit_usd" {
+  type        = string
+  description = "Higher monthly spend guardrail that indicates unexpected Chi Movie Club cost growth."
+  default     = "25"
 }

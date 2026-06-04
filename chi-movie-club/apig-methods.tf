@@ -121,6 +121,7 @@ resource "aws_lambda_permission" "allow_apig_gracenote_showtime_coordinator" {
 locals {
   cors_resources = {
     movies_search              = aws_api_gateway_resource.movies_search.id
+    movies_now_playing         = aws_api_gateway_resource.movies_now_playing.id
     clubs                      = aws_api_gateway_resource.clubs.id
     club_invites               = aws_api_gateway_resource.club_invites.id
     invite_token               = aws_api_gateway_resource.invite_token.id
@@ -309,6 +310,24 @@ resource "aws_api_gateway_integration" "get_movies_search_integration" {
   rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
   resource_id             = aws_api_gateway_resource.movies_search.id
   http_method             = aws_api_gateway_method.get_movies_search.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["movie_search"].invoke_arn
+}
+
+# GET /movies/now-playing
+resource "aws_api_gateway_method" "get_movies_now_playing" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.movies_now_playing.id
+  http_method   = "GET"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "get_movies_now_playing_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.movies_now_playing.id
+  http_method             = aws_api_gateway_method.get_movies_now_playing.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.app_handlers["movie_search"].invoke_arn

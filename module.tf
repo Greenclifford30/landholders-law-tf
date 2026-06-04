@@ -8,8 +8,9 @@ module "onewayelectric" {
 }
 
 module "chimovieclub" {
-  source = "./chi-movie-club"
+  source                    = "./chi-movie-club"
   google_verification_value = ""
+  owner_email               = var.owner_email
 }
 
 # module "sinflul_delights" {
