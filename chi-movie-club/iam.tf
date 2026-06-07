@@ -49,6 +49,7 @@ data "aws_iam_policy_document" "policy" {
     actions = [
       "dynamodb:PutItem",
       "dynamodb:TransactWriteItems",
+      "dynamodb:BatchWriteItem",
       "dynamodb:GetItem",
       "dynamodb:UpdateItem",
       "dynamodb:DeleteItem",
