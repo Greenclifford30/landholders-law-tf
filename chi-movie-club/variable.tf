@@ -103,6 +103,52 @@ variable "tmdb_secret_name" {
   default     = "/cmc/production/tmdb/api-token"
 }
 
+variable "cognito_domain_prefix" {
+  type        = string
+  description = "Globally unique Cognito Hosted UI domain prefix, without the auth region suffix."
+
+  validation {
+    condition     = can(regex("^[a-z0-9](?:[a-z0-9-]{1,61}[a-z0-9])?$", var.cognito_domain_prefix))
+    error_message = "cognito_domain_prefix must be 3-63 lowercase letters, numbers, or hyphens, and cannot start or end with a hyphen."
+  }
+}
+
+variable "cognito_google_client_id" {
+  type        = string
+  description = "Google OAuth client ID for Cognito Hosted UI federation."
+  sensitive   = true
+}
+
+variable "cognito_google_client_secret" {
+  type        = string
+  description = "Google OAuth client secret for Cognito Hosted UI federation."
+  sensitive   = true
+}
+
+variable "cognito_callback_urls" {
+  type        = list(string)
+  description = "Allowed Cognito OAuth callback URLs. Include local and production /auth/callback URLs."
+  default     = ["http://localhost:3000/auth/callback"]
+}
+
+variable "cognito_logout_urls" {
+  type        = list(string)
+  description = "Allowed Cognito OAuth sign-out redirect URLs."
+  default     = ["http://localhost:3000/sign-in"]
+}
+
+variable "cognito_oauth_scopes" {
+  type        = list(string)
+  description = "OAuth scopes requested by the Cognito app client."
+  default     = ["openid", "email", "profile"]
+}
+
+variable "cognito_google_oauth_scopes" {
+  type        = list(string)
+  description = "OAuth scopes requested from Google by the Cognito identity provider."
+  default     = ["openid", "email", "profile"]
+}
+
 variable "tmdb_base_url" {
   type        = string
   description = "Base URL for TMDB API calls."

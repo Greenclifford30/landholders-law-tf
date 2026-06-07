@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 resource "aws_cognito_user_pool" "main" {
   name = "${var.app}-user-pool"
 
@@ -26,19 +28,52 @@ resource "aws_cognito_user_pool" "main" {
   }
 }
 
+resource "aws_cognito_identity_provider" "google" {
+  user_pool_id  = aws_cognito_user_pool.main.id
+  provider_name = "Google"
+  provider_type = "Google"
+
+  provider_details = {
+    authorize_scopes = join(" ", var.cognito_google_oauth_scopes)
+    client_id        = var.cognito_google_client_id
+    client_secret    = var.cognito_google_client_secret
+  }
+
+  attribute_mapping = {
+    email          = "email"
+    email_verified = "email_verified"
+    given_name     = "given_name"
+    family_name    = "family_name"
+    name           = "name"
+    picture        = "picture"
+    username       = "sub"
+  }
+}
+
+resource "aws_cognito_user_pool_domain" "main" {
+  domain       = var.cognito_domain_prefix
+  user_pool_id = aws_cognito_user_pool.main.id
+}
+
 resource "aws_cognito_user_pool_client" "web" {
   name         = "${var.app}-web-client"
   user_pool_id = aws_cognito_user_pool.main.id
 
   generate_secret                      = false
   prevent_user_existence_errors        = "ENABLED"
-  supported_identity_providers         = ["COGNITO"]
-  allowed_oauth_flows_user_pool_client = false
+  supported_identity_providers         = ["COGNITO", aws_cognito_identity_provider.google.provider_name]
+  allowed_oauth_flows_user_pool_client = true
+  callback_urls                        = var.cognito_callback_urls
+  logout_urls                          = var.cognito_logout_urls
+  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_scopes                 = var.cognito_oauth_scopes
 
   explicit_auth_flows = [
     "ALLOW_REFRESH_TOKEN_AUTH",
     "ALLOW_USER_SRP_AUTH",
   ]
+
+  depends_on = [aws_cognito_identity_provider.google]
 }
 
 resource "aws_cognito_user_group" "admin" {

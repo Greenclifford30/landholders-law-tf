@@ -26,6 +26,35 @@ variable "ses_domain_name" {
 }
 
 variable "google_verification_value" {
-  type = string
+  type        = string
   description = "google verification"
+}
+
+variable "chimovieclub_cognito_domain_prefix" {
+  type        = string
+  description = "Globally unique Cognito Hosted UI domain prefix for Chi Movie Club."
+}
+
+variable "chimovieclub_cognito_google_client_id" {
+  type        = string
+  description = "Google OAuth client ID for Chi Movie Club Cognito federation."
+  sensitive   = true
+}
+
+variable "chimovieclub_cognito_google_client_secret" {
+  type        = string
+  description = "Google OAuth client secret for Chi Movie Club Cognito federation."
+  sensitive   = true
+}
+
+variable "chimovieclub_cognito_callback_urls" {
+  type        = list(string)
+  description = "Allowed Chi Movie Club Cognito OAuth callback URLs."
+  default     = ["http://localhost:3000/auth/callback"]
+}
+
+variable "chimovieclub_cognito_logout_urls" {
+  type        = list(string)
+  description = "Allowed Chi Movie Club Cognito OAuth sign-out redirect URLs."
+  default     = ["http://localhost:3000/sign-in"]
 }
