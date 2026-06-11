@@ -31,6 +31,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.movie_night_vote.id,
       aws_api_gateway_resource.movie_night_vote_results.id,
       aws_api_gateway_resource.movie_night_confirm.id,
+      aws_api_gateway_resource.movie_night_complete.id,
       aws_api_gateway_resource.movie_night_rsvp.id,
       aws_api_gateway_resource.admin_showtimes.id,
       aws_api_gateway_resource.admin_showtimes_gracenote.id,
@@ -51,6 +52,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.put_movie_night_vote.id,
       aws_api_gateway_method.get_movie_night_vote_results.id,
       aws_api_gateway_method.post_movie_night_confirm.id,
+      aws_api_gateway_method.post_movie_night_complete.id,
       aws_api_gateway_method.put_movie_night_rsvp.id,
       aws_api_gateway_method.post_admin_showtimes_gracenote_refresh.id,
       aws_api_gateway_method.get_admin_showtimes_gracenote_search.id,
@@ -69,6 +71,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_integration.put_movie_night_vote_integration.id,
       aws_api_gateway_integration.get_movie_night_vote_results_integration.id,
       aws_api_gateway_integration.post_movie_night_confirm_integration.id,
+      aws_api_gateway_integration.post_movie_night_complete_integration.id,
       aws_api_gateway_integration.put_movie_night_rsvp_integration.id,
       aws_api_gateway_integration.post_admin_showtimes_gracenote_refresh_integration.id,
       aws_api_gateway_integration.get_admin_showtimes_gracenote_search_integration.id,
@@ -101,6 +104,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.put_movie_night_vote_integration,
     aws_api_gateway_integration.get_movie_night_vote_results_integration,
     aws_api_gateway_integration.post_movie_night_confirm_integration,
+    aws_api_gateway_integration.post_movie_night_complete_integration,
     aws_api_gateway_integration.put_movie_night_rsvp_integration,
     aws_api_gateway_integration.post_admin_showtimes_gracenote_refresh_integration,
     aws_api_gateway_integration.get_admin_showtimes_gracenote_search_integration,
@@ -272,6 +276,12 @@ resource "aws_api_gateway_resource" "movie_night_confirm" {
   path_part   = "confirm"
 }
 
+resource "aws_api_gateway_resource" "movie_night_complete" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.movie_night_id.id
+  path_part   = "complete"
+}
+
 resource "aws_api_gateway_resource" "movie_night_rsvp" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_resource.movie_night_id.id
@@ -283,13 +293,13 @@ resource "aws_api_gateway_usage_plan" "chimovieclub_usage_plan" {
 
   # (Optional) Throttling settings
   throttle_settings {
-    burst_limit = 100   # Max requests in a single burst
-    rate_limit  = 50    # Steady-state requests per second
+    burst_limit = 100 # Max requests in a single burst
+    rate_limit  = 50  # Steady-state requests per second
   }
 
   # (Optional) Quota settings
   quota_settings {
-    limit  = 10000      # Max requests per month
+    limit  = 10000 # Max requests per month
     period = "MONTH"
   }
 
@@ -318,9 +328,9 @@ resource "aws_api_gateway_usage_plan_key" "chimovieclub_law_api_key" {
 
 
 resource "aws_api_gateway_method" "selection_options" {
-  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
-  resource_id = aws_api_gateway_resource.selection.id
-  http_method = "OPTIONS"
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.selection.id
+  http_method   = "OPTIONS"
   authorization = "NONE"
 }
 
@@ -366,9 +376,9 @@ resource "aws_api_gateway_integration_response" "selection_options_integration_r
 
 
 resource "aws_api_gateway_method" "get_options_options" {
-  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
-  resource_id = aws_api_gateway_resource.options.id
-  http_method = "OPTIONS"
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.options.id
+  http_method   = "OPTIONS"
   authorization = "NONE"
 }
 
