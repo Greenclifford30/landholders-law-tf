@@ -17,6 +17,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.movies_search.id,
       aws_api_gateway_resource.movies_now_playing.id,
       aws_api_gateway_resource.clubs.id,
+      aws_api_gateway_resource.me.id,
+      aws_api_gateway_resource.me_preferences.id,
       aws_api_gateway_resource.club_id.id,
       aws_api_gateway_resource.club_invites.id,
       aws_api_gateway_resource.invites.id,
@@ -41,6 +43,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.get_movies_now_playing.id,
       aws_api_gateway_method.get_clubs.id,
       aws_api_gateway_method.post_clubs.id,
+      aws_api_gateway_method.get_me_preferences.id,
+      aws_api_gateway_method.put_me_preferences.id,
       aws_api_gateway_method.post_club_invites.id,
       aws_api_gateway_method.get_club_invites.id,
       aws_api_gateway_method.get_invite.id,
@@ -60,6 +64,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_integration.get_movies_now_playing_integration.id,
       aws_api_gateway_integration.get_clubs_integration.id,
       aws_api_gateway_integration.post_clubs_integration.id,
+      aws_api_gateway_integration.get_me_preferences_integration.id,
+      aws_api_gateway_integration.put_me_preferences_integration.id,
       aws_api_gateway_integration.post_club_invites_integration.id,
       aws_api_gateway_integration.get_club_invites_integration.id,
       aws_api_gateway_integration.get_invite_integration.id,
@@ -93,6 +99,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.get_movies_now_playing_integration,
     aws_api_gateway_integration.get_clubs_integration,
     aws_api_gateway_integration.post_clubs_integration,
+    aws_api_gateway_integration.get_me_preferences_integration,
+    aws_api_gateway_integration.put_me_preferences_integration,
     aws_api_gateway_integration.post_club_invites_integration,
     aws_api_gateway_integration.get_club_invites_integration,
     aws_api_gateway_integration.get_invite_integration,
@@ -190,6 +198,18 @@ resource "aws_api_gateway_resource" "clubs" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_rest_api.chimovieclub_api.root_resource_id
   path_part   = "clubs"
+}
+
+resource "aws_api_gateway_resource" "me" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_rest_api.chimovieclub_api.root_resource_id
+  path_part   = "me"
+}
+
+resource "aws_api_gateway_resource" "me_preferences" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.me.id
+  path_part   = "preferences"
 }
 
 resource "aws_api_gateway_resource" "club_id" {

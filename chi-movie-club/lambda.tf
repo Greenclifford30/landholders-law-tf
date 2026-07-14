@@ -36,6 +36,9 @@ locals {
     manage_invites = {
       function_name = "${var.app}-manage-invites-lambda"
     }
+    manage_preferences = {
+      function_name = "${var.app}-manage-preferences-lambda"
+    }
   }
 
   lambda_log_group_names = merge(
