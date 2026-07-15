@@ -39,6 +39,9 @@ locals {
     manage_preferences = {
       function_name = "${var.app}-manage-preferences-lambda"
     }
+    get_attendance = {
+      function_name = "${var.app}-get-attendance-lambda"
+    }
   }
 
   lambda_log_group_names = merge(
@@ -242,6 +245,9 @@ resource "aws_lambda_function" "app_handlers" {
       each.key == "manage_invites" ? {
         APP_BASE_URL      = var.movie_club_app_base_url
         INVITE_EMAIL_FROM = var.movie_club_invite_email_from
+      } : {},
+      each.key == "manage_showtimes" ? {
+        SHOWTIME_REFRESH_QUEUE_URL = aws_sqs_queue.gracenote_showtime_refresh_queue.id
       } : {}
     )
   }
