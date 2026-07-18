@@ -42,6 +42,9 @@ locals {
     get_attendance = {
       function_name = "${var.app}-get-attendance-lambda"
     }
+    get_calendar = {
+      function_name = "${var.app}-get-calendar-lambda"
+    }
   }
 
   lambda_log_group_names = merge(

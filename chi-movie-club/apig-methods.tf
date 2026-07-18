@@ -580,6 +580,24 @@ resource "aws_api_gateway_integration" "get_movie_night_attendance_integration" 
   uri                     = aws_lambda_function.app_handlers["get_attendance"].invoke_arn
 }
 
+# GET /movie-nights/{movieNightId}/calendar
+resource "aws_api_gateway_method" "get_movie_night_calendar" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.movie_night_calendar.id
+  http_method   = "GET"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "get_movie_night_calendar_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.movie_night_calendar.id
+  http_method             = aws_api_gateway_method.get_movie_night_calendar.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["get_calendar"].invoke_arn
+}
+
 resource "aws_lambda_permission" "allow_apig_app_handlers" {
   for_each = aws_lambda_function.app_handlers
 

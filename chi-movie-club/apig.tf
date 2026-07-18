@@ -36,6 +36,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.movie_night_complete.id,
       aws_api_gateway_resource.movie_night_rsvp.id,
       aws_api_gateway_resource.movie_night_attendance.id,
+      aws_api_gateway_resource.movie_night_calendar.id,
       aws_api_gateway_resource.admin_showtimes.id,
       aws_api_gateway_resource.admin_showtimes_gracenote.id,
       aws_api_gateway_resource.admin_showtimes_gracenote_refresh.id,
@@ -60,6 +61,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.post_movie_night_complete.id,
       aws_api_gateway_method.put_movie_night_rsvp.id,
       aws_api_gateway_method.get_movie_night_attendance.id,
+      aws_api_gateway_method.get_movie_night_calendar.id,
       aws_api_gateway_method.post_admin_showtimes_gracenote_refresh.id,
       aws_api_gateway_method.get_admin_showtimes_gracenote_search.id,
       aws_api_gateway_integration.get_movies_search_integration.id,
@@ -82,6 +84,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_integration.post_movie_night_complete_integration.id,
       aws_api_gateway_integration.put_movie_night_rsvp_integration.id,
       aws_api_gateway_integration.get_movie_night_attendance_integration.id,
+      aws_api_gateway_integration.get_movie_night_calendar_integration.id,
       aws_api_gateway_integration.post_admin_showtimes_gracenote_refresh_integration.id,
       aws_api_gateway_integration.get_admin_showtimes_gracenote_search_integration.id,
       aws_api_gateway_authorizer.cognito.id,
@@ -118,6 +121,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.post_movie_night_complete_integration,
     aws_api_gateway_integration.put_movie_night_rsvp_integration,
     aws_api_gateway_integration.get_movie_night_attendance_integration,
+    aws_api_gateway_integration.get_movie_night_calendar_integration,
     aws_api_gateway_integration.post_admin_showtimes_gracenote_refresh_integration,
     aws_api_gateway_integration.get_admin_showtimes_gracenote_search_integration,
     aws_api_gateway_integration.cors_options_integration,
@@ -316,6 +320,12 @@ resource "aws_api_gateway_resource" "movie_night_attendance" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_resource.movie_night_id.id
   path_part   = "attendance"
+}
+
+resource "aws_api_gateway_resource" "movie_night_calendar" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.movie_night_id.id
+  path_part   = "calendar"
 }
 
 resource "aws_api_gateway_usage_plan" "chimovieclub_usage_plan" {
