@@ -128,13 +128,13 @@ variable "cognito_google_client_secret" {
 variable "cognito_callback_urls" {
   type        = list(string)
   description = "Allowed Cognito OAuth callback URLs. Include local and production /auth/callback URLs."
-  default     = ["http://localhost:3000/auth/callback"]
+  default     = ["http://localhost:3000/auth/callback", "https://chimovieclub.app/auth/callback"]
 }
 
 variable "cognito_logout_urls" {
   type        = list(string)
   description = "Allowed Cognito OAuth sign-out redirect URLs."
-  default     = ["http://localhost:3000/sign-in"]
+  default     = ["http://localhost:3000/sign-in", "https://chimovieclub.app/sign-in"]
 }
 
 variable "cognito_oauth_scopes" {
