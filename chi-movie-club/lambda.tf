@@ -247,6 +247,7 @@ resource "aws_lambda_function" "app_handlers" {
       } : {},
       each.key == "manage_invites" ? {
         APP_BASE_URL      = var.movie_club_app_base_url
+        COGNITO_USER_POOL_ID = aws_cognito_user_pool.main.id
         INVITE_EMAIL_FROM = var.movie_club_invite_email_from
       } : {},
       each.key == "manage_showtimes" ? {

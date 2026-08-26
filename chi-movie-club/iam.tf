@@ -38,6 +38,10 @@ resource "aws_iam_policy" "lambda_policy" {
 
 data "aws_iam_policy_document" "policy" {
   statement {
+    actions = ["cognito-idp:AdminAddUserToGroup"]
+    resources = [aws_cognito_user_pool.main.arn]
+  }
+  statement {
     actions = [
       "ses:SendEmail",
       "ses:SendRawEmail",
