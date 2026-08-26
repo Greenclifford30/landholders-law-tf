@@ -128,13 +128,13 @@ variable "cognito_google_client_secret" {
 variable "cognito_callback_urls" {
   type        = list(string)
   description = "Allowed Cognito OAuth callback URLs. Include local and production /auth/callback URLs."
-  default     = ["http://localhost:3000/auth/callback"]
+  default     = ["http://localhost:3000/auth/callback", "https://chicagomovieclub.app/callback"]
 }
 
 variable "cognito_logout_urls" {
   type        = list(string)
   description = "Allowed Cognito OAuth sign-out redirect URLs."
-  default     = ["http://localhost:3000/sign-in"]
+  default     = ["http://localhost:3000/sign-in", "https://chicagomovieclub.app/sign-in"]
 }
 
 variable "cognito_oauth_scopes" {
@@ -157,8 +157,8 @@ variable "tmdb_base_url" {
 
 variable "movie_club_app_base_url" {
   type        = string
-  description = "Public Movie Club app URL used in invite links."
-  default     = "http://localhost:3000"
+  description = "Optional public Movie Club app URL used in invite links. Leave empty to use the app origin forwarded by the Next.js proxy."
+  default     = "https://chicagomovieclub.app"
 }
 
 variable "movie_club_invite_email_from" {
