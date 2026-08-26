@@ -147,22 +147,25 @@ resource "aws_lambda_permission" "allow_apig_gracenote_showtime_search" {
 
 locals {
   cors_resources = {
-    movies_search              = aws_api_gateway_resource.movies_search.id
-    movies_now_playing         = aws_api_gateway_resource.movies_now_playing.id
-    clubs                      = aws_api_gateway_resource.clubs.id
-    club_invites               = aws_api_gateway_resource.club_invites.id
-    invite_token               = aws_api_gateway_resource.invite_token.id
-    invite_accept              = aws_api_gateway_resource.invite_accept.id
-    club_movie_nights          = aws_api_gateway_resource.club_movie_nights.id
-    club_movie_nights_active   = aws_api_gateway_resource.club_movie_nights_active.id
-    club_movie_nights_history  = aws_api_gateway_resource.club_movie_nights_history.id
-    movie_night_showtimes      = aws_api_gateway_resource.movie_night_showtimes.id
-    movie_night_vote           = aws_api_gateway_resource.movie_night_vote.id
-    movie_night_vote_results   = aws_api_gateway_resource.movie_night_vote_results.id
-    movie_night_confirm        = aws_api_gateway_resource.movie_night_confirm.id
-    movie_night_rsvp           = aws_api_gateway_resource.movie_night_rsvp.id
-    admin_gracenote_refresh    = aws_api_gateway_resource.admin_showtimes_gracenote_refresh.id
-    admin_gracenote_search     = aws_api_gateway_resource.admin_showtimes_gracenote_search.id
+    movies_search             = aws_api_gateway_resource.movies_search.id
+    movies_now_playing        = aws_api_gateway_resource.movies_now_playing.id
+    clubs                     = aws_api_gateway_resource.clubs.id
+    me_preferences            = aws_api_gateway_resource.me_preferences.id
+    club_invites              = aws_api_gateway_resource.club_invites.id
+    invite_token              = aws_api_gateway_resource.invite_token.id
+    invite_accept             = aws_api_gateway_resource.invite_accept.id
+    club_movie_nights         = aws_api_gateway_resource.club_movie_nights.id
+    club_movie_nights_active  = aws_api_gateway_resource.club_movie_nights_active.id
+    club_movie_nights_history = aws_api_gateway_resource.club_movie_nights_history.id
+    movie_night_showtimes     = aws_api_gateway_resource.movie_night_showtimes.id
+    movie_night_vote          = aws_api_gateway_resource.movie_night_vote.id
+    movie_night_vote_results  = aws_api_gateway_resource.movie_night_vote_results.id
+    movie_night_confirm       = aws_api_gateway_resource.movie_night_confirm.id
+    movie_night_complete      = aws_api_gateway_resource.movie_night_complete.id
+    movie_night_rsvp          = aws_api_gateway_resource.movie_night_rsvp.id
+    movie_night_attendance    = aws_api_gateway_resource.movie_night_attendance.id
+    admin_gracenote_refresh   = aws_api_gateway_resource.admin_showtimes_gracenote_refresh.id
+    admin_gracenote_search    = aws_api_gateway_resource.admin_showtimes_gracenote_search.id
   }
 }
 
@@ -252,6 +255,42 @@ resource "aws_api_gateway_integration" "post_clubs_integration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.app_handlers["manage_clubs"].invoke_arn
+}
+
+# GET /me/preferences
+resource "aws_api_gateway_method" "get_me_preferences" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.me_preferences.id
+  http_method   = "GET"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "get_me_preferences_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.me_preferences.id
+  http_method             = aws_api_gateway_method.get_me_preferences.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_preferences"].invoke_arn
+}
+
+# PUT /me/preferences
+resource "aws_api_gateway_method" "put_me_preferences" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.me_preferences.id
+  http_method   = "PUT"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "put_me_preferences_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.me_preferences.id
+  http_method             = aws_api_gateway_method.put_me_preferences.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_preferences"].invoke_arn
 }
 
 # POST /clubs/{clubId}/invites
@@ -487,6 +526,24 @@ resource "aws_api_gateway_integration" "post_movie_night_confirm_integration" {
   uri                     = aws_lambda_function.app_handlers["confirm_showtime"].invoke_arn
 }
 
+# POST /movie-nights/{movieNightId}/complete
+resource "aws_api_gateway_method" "post_movie_night_complete" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.movie_night_complete.id
+  http_method   = "POST"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "post_movie_night_complete_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.movie_night_complete.id
+  http_method             = aws_api_gateway_method.post_movie_night_complete.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["complete_movie_night"].invoke_arn
+}
+
 # PUT /movie-nights/{movieNightId}/rsvp
 resource "aws_api_gateway_method" "put_movie_night_rsvp" {
   rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
@@ -503,6 +560,42 @@ resource "aws_api_gateway_integration" "put_movie_night_rsvp_integration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.app_handlers["update_rsvp"].invoke_arn
+}
+
+# GET /movie-nights/{movieNightId}/attendance
+resource "aws_api_gateway_method" "get_movie_night_attendance" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.movie_night_attendance.id
+  http_method   = "GET"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "get_movie_night_attendance_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.movie_night_attendance.id
+  http_method             = aws_api_gateway_method.get_movie_night_attendance.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["get_attendance"].invoke_arn
+}
+
+# GET /movie-nights/{movieNightId}/calendar
+resource "aws_api_gateway_method" "get_movie_night_calendar" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.movie_night_calendar.id
+  http_method   = "GET"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "get_movie_night_calendar_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.movie_night_calendar.id
+  http_method             = aws_api_gateway_method.get_movie_night_calendar.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["get_calendar"].invoke_arn
 }
 
 resource "aws_lambda_permission" "allow_apig_app_handlers" {

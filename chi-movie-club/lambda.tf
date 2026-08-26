@@ -21,6 +21,9 @@ locals {
     confirm_showtime = {
       function_name = "${var.app}-confirm-showtime-lambda"
     }
+    complete_movie_night = {
+      function_name = "${var.app}-complete-movie-night-lambda"
+    }
     update_rsvp = {
       function_name = "${var.app}-update-rsvp-lambda"
     }
@@ -32,6 +35,15 @@ locals {
     }
     manage_invites = {
       function_name = "${var.app}-manage-invites-lambda"
+    }
+    manage_preferences = {
+      function_name = "${var.app}-manage-preferences-lambda"
+    }
+    get_attendance = {
+      function_name = "${var.app}-get-attendance-lambda"
+    }
+    get_calendar = {
+      function_name = "${var.app}-get-calendar-lambda"
     }
   }
 
@@ -88,8 +100,8 @@ resource "aws_lambda_function" "movie_scraper" {
 
   environment {
     variables = {
-      APP_TABLE_NAME                = aws_dynamodb_table.app.name
-      MOVIE_SHOWTIME_OPTIONS_TABLE  = aws_dynamodb_table.app.name
+      APP_TABLE_NAME               = aws_dynamodb_table.app.name
+      MOVIE_SHOWTIME_OPTIONS_TABLE = aws_dynamodb_table.app.name
     }
   }
 
@@ -107,14 +119,14 @@ resource "aws_lambda_function" "gracenote_showtime_coordinator" {
 
   environment {
     variables = {
-      APP_TABLE_NAME                 = aws_dynamodb_table.app.name
-      SHOWTIME_REFRESH_QUEUE_URL     = aws_sqs_queue.gracenote_showtime_refresh_queue.id
-      GRACENOTE_DEFAULT_ZIP          = var.gracenote_default_zip
-      GRACENOTE_DEFAULT_RADIUS       = tostring(var.gracenote_default_radius)
-      GRACENOTE_DEFAULT_NUM_DAYS     = tostring(var.gracenote_default_num_days)
-      GRACENOTE_UNITS                = var.gracenote_units
-      MOVIE_CLUB_TIMEZONE            = var.movie_club_timezone
-      LOG_LEVEL                      = "INFO"
+      APP_TABLE_NAME             = aws_dynamodb_table.app.name
+      SHOWTIME_REFRESH_QUEUE_URL = aws_sqs_queue.gracenote_showtime_refresh_queue.id
+      GRACENOTE_DEFAULT_ZIP      = var.gracenote_default_zip
+      GRACENOTE_DEFAULT_RADIUS   = tostring(var.gracenote_default_radius)
+      GRACENOTE_DEFAULT_NUM_DAYS = tostring(var.gracenote_default_num_days)
+      GRACENOTE_UNITS            = var.gracenote_units
+      MOVIE_CLUB_TIMEZONE        = var.movie_club_timezone
+      LOG_LEVEL                  = "INFO"
     }
   }
 
@@ -236,6 +248,9 @@ resource "aws_lambda_function" "app_handlers" {
       each.key == "manage_invites" ? {
         APP_BASE_URL      = var.movie_club_app_base_url
         INVITE_EMAIL_FROM = var.movie_club_invite_email_from
+      } : {},
+      each.key == "manage_showtimes" ? {
+        SHOWTIME_REFRESH_QUEUE_URL = aws_sqs_queue.gracenote_showtime_refresh_queue.id
       } : {}
     )
   }

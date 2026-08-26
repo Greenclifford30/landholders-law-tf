@@ -17,6 +17,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.movies_search.id,
       aws_api_gateway_resource.movies_now_playing.id,
       aws_api_gateway_resource.clubs.id,
+      aws_api_gateway_resource.me.id,
+      aws_api_gateway_resource.me_preferences.id,
       aws_api_gateway_resource.club_id.id,
       aws_api_gateway_resource.club_invites.id,
       aws_api_gateway_resource.invites.id,
@@ -31,7 +33,10 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.movie_night_vote.id,
       aws_api_gateway_resource.movie_night_vote_results.id,
       aws_api_gateway_resource.movie_night_confirm.id,
+      aws_api_gateway_resource.movie_night_complete.id,
       aws_api_gateway_resource.movie_night_rsvp.id,
+      aws_api_gateway_resource.movie_night_attendance.id,
+      aws_api_gateway_resource.movie_night_calendar.id,
       aws_api_gateway_resource.admin_showtimes.id,
       aws_api_gateway_resource.admin_showtimes_gracenote.id,
       aws_api_gateway_resource.admin_showtimes_gracenote_refresh.id,
@@ -40,6 +45,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.get_movies_now_playing.id,
       aws_api_gateway_method.get_clubs.id,
       aws_api_gateway_method.post_clubs.id,
+      aws_api_gateway_method.get_me_preferences.id,
+      aws_api_gateway_method.put_me_preferences.id,
       aws_api_gateway_method.post_club_invites.id,
       aws_api_gateway_method.get_club_invites.id,
       aws_api_gateway_method.get_invite.id,
@@ -51,13 +58,18 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.put_movie_night_vote.id,
       aws_api_gateway_method.get_movie_night_vote_results.id,
       aws_api_gateway_method.post_movie_night_confirm.id,
+      aws_api_gateway_method.post_movie_night_complete.id,
       aws_api_gateway_method.put_movie_night_rsvp.id,
+      aws_api_gateway_method.get_movie_night_attendance.id,
+      aws_api_gateway_method.get_movie_night_calendar.id,
       aws_api_gateway_method.post_admin_showtimes_gracenote_refresh.id,
       aws_api_gateway_method.get_admin_showtimes_gracenote_search.id,
       aws_api_gateway_integration.get_movies_search_integration.id,
       aws_api_gateway_integration.get_movies_now_playing_integration.id,
       aws_api_gateway_integration.get_clubs_integration.id,
       aws_api_gateway_integration.post_clubs_integration.id,
+      aws_api_gateway_integration.get_me_preferences_integration.id,
+      aws_api_gateway_integration.put_me_preferences_integration.id,
       aws_api_gateway_integration.post_club_invites_integration.id,
       aws_api_gateway_integration.get_club_invites_integration.id,
       aws_api_gateway_integration.get_invite_integration.id,
@@ -69,7 +81,10 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_integration.put_movie_night_vote_integration.id,
       aws_api_gateway_integration.get_movie_night_vote_results_integration.id,
       aws_api_gateway_integration.post_movie_night_confirm_integration.id,
+      aws_api_gateway_integration.post_movie_night_complete_integration.id,
       aws_api_gateway_integration.put_movie_night_rsvp_integration.id,
+      aws_api_gateway_integration.get_movie_night_attendance_integration.id,
+      aws_api_gateway_integration.get_movie_night_calendar_integration.id,
       aws_api_gateway_integration.post_admin_showtimes_gracenote_refresh_integration.id,
       aws_api_gateway_integration.get_admin_showtimes_gracenote_search_integration.id,
       aws_api_gateway_authorizer.cognito.id,
@@ -90,6 +105,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.get_movies_now_playing_integration,
     aws_api_gateway_integration.get_clubs_integration,
     aws_api_gateway_integration.post_clubs_integration,
+    aws_api_gateway_integration.get_me_preferences_integration,
+    aws_api_gateway_integration.put_me_preferences_integration,
     aws_api_gateway_integration.post_club_invites_integration,
     aws_api_gateway_integration.get_club_invites_integration,
     aws_api_gateway_integration.get_invite_integration,
@@ -101,7 +118,10 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.put_movie_night_vote_integration,
     aws_api_gateway_integration.get_movie_night_vote_results_integration,
     aws_api_gateway_integration.post_movie_night_confirm_integration,
+    aws_api_gateway_integration.post_movie_night_complete_integration,
     aws_api_gateway_integration.put_movie_night_rsvp_integration,
+    aws_api_gateway_integration.get_movie_night_attendance_integration,
+    aws_api_gateway_integration.get_movie_night_calendar_integration,
     aws_api_gateway_integration.post_admin_showtimes_gracenote_refresh_integration,
     aws_api_gateway_integration.get_admin_showtimes_gracenote_search_integration,
     aws_api_gateway_integration.cors_options_integration,
@@ -188,6 +208,18 @@ resource "aws_api_gateway_resource" "clubs" {
   path_part   = "clubs"
 }
 
+resource "aws_api_gateway_resource" "me" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_rest_api.chimovieclub_api.root_resource_id
+  path_part   = "me"
+}
+
+resource "aws_api_gateway_resource" "me_preferences" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.me.id
+  path_part   = "preferences"
+}
+
 resource "aws_api_gateway_resource" "club_id" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_resource.clubs.id
@@ -272,10 +304,28 @@ resource "aws_api_gateway_resource" "movie_night_confirm" {
   path_part   = "confirm"
 }
 
+resource "aws_api_gateway_resource" "movie_night_complete" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.movie_night_id.id
+  path_part   = "complete"
+}
+
 resource "aws_api_gateway_resource" "movie_night_rsvp" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_resource.movie_night_id.id
   path_part   = "rsvp"
+}
+
+resource "aws_api_gateway_resource" "movie_night_attendance" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.movie_night_id.id
+  path_part   = "attendance"
+}
+
+resource "aws_api_gateway_resource" "movie_night_calendar" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.movie_night_id.id
+  path_part   = "calendar"
 }
 
 resource "aws_api_gateway_usage_plan" "chimovieclub_usage_plan" {
@@ -283,13 +333,13 @@ resource "aws_api_gateway_usage_plan" "chimovieclub_usage_plan" {
 
   # (Optional) Throttling settings
   throttle_settings {
-    burst_limit = 100   # Max requests in a single burst
-    rate_limit  = 50    # Steady-state requests per second
+    burst_limit = 100 # Max requests in a single burst
+    rate_limit  = 50  # Steady-state requests per second
   }
 
   # (Optional) Quota settings
   quota_settings {
-    limit  = 10000      # Max requests per month
+    limit  = 10000 # Max requests per month
     period = "MONTH"
   }
 
@@ -318,9 +368,9 @@ resource "aws_api_gateway_usage_plan_key" "chimovieclub_law_api_key" {
 
 
 resource "aws_api_gateway_method" "selection_options" {
-  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
-  resource_id = aws_api_gateway_resource.selection.id
-  http_method = "OPTIONS"
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.selection.id
+  http_method   = "OPTIONS"
   authorization = "NONE"
 }
 
@@ -366,9 +416,9 @@ resource "aws_api_gateway_integration_response" "selection_options_integration_r
 
 
 resource "aws_api_gateway_method" "get_options_options" {
-  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
-  resource_id = aws_api_gateway_resource.options.id
-  http_method = "OPTIONS"
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.options.id
+  http_method   = "OPTIONS"
   authorization = "NONE"
 }
 

@@ -71,7 +71,10 @@ data "aws_iam_policy_document" "policy" {
       "sqs:DeleteMessage",
       "sqs:GetQueueAttributes",
     ]
-    resources = [aws_sqs_queue.admin_selection.arn]
+    resources = [
+      aws_sqs_queue.admin_selection.arn,
+      aws_sqs_queue.gracenote_showtime_refresh_queue.arn,
+    ]
 
   }
 }
