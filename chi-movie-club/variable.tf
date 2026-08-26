@@ -43,7 +43,7 @@ variable "gracenote_secret_name" {
 variable "gracenote_default_zip" {
   type        = string
   description = "Default ZIP code used for Gracenote showtime refreshes."
-  default     = "60422"
+  default     = "60649"
 }
 
 variable "gracenote_default_radius" {
