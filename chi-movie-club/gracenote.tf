@@ -51,3 +51,24 @@ resource "aws_lambda_permission" "allow_eventbridge_gracenote_showtime_refresh" 
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.gracenote_showtime_refresh.arn
 }
+
+resource "aws_cloudwatch_event_rule" "upcoming_showtime_monitor" {
+  name                = "${var.app}-upcoming-showtime-monitor"
+  description         = "Daily check for showtimes on planned upcoming movie nights."
+  schedule_expression = var.upcoming_showtime_monitor_schedule_expression
+  state               = "ENABLED"
+}
+
+resource "aws_cloudwatch_event_target" "upcoming_showtime_monitor" {
+  rule      = aws_cloudwatch_event_rule.upcoming_showtime_monitor.name
+  target_id = "upcoming-showtime-monitor"
+  arn       = aws_lambda_function.showtime_monitor.arn
+}
+
+resource "aws_lambda_permission" "allow_eventbridge_upcoming_showtime_monitor" {
+  statement_id  = "AllowEventBridgeInvokeUpcomingShowtimeMonitor"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.showtime_monitor.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.upcoming_showtime_monitor.arn
+}

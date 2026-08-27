@@ -179,6 +179,12 @@ variable "gracenote_refresh_schedule_expression" {
   default     = "cron(0 11 * * ? *)"
 }
 
+variable "upcoming_showtime_monitor_schedule_expression" {
+  type        = string
+  description = "EventBridge schedule expression for checking planned upcoming movie nights."
+  default     = "cron(0 11 * * ? *)"
+}
+
 variable "gracenote_worker_timeout_seconds" {
   type        = number
   description = "Timeout in seconds for the Gracenote showtime worker Lambda."

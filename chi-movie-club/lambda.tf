@@ -155,6 +155,26 @@ resource "aws_lambda_function" "gracenote_showtime_worker" {
       GRACENOTE_IMAGE_TEXT       = tostring(var.gracenote_image_text)
       MOVIE_CLUB_TIMEZONE        = var.movie_club_timezone
       LOG_LEVEL                  = "INFO"
+      MOVIE_NIGHT_EMAIL_FROM     = var.movie_club_invite_email_from
+      APP_BASE_URL               = var.movie_club_app_base_url
+    }
+  }
+
+  tags = local.common_tags
+}
+
+resource "aws_lambda_function" "showtime_monitor" {
+  function_name = "${var.app}-showtime-monitor-lambda"
+  role          = aws_iam_role.lambda_role.arn
+  runtime       = "python3.13"
+  handler       = "app.handler"
+  filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
+  timeout       = 60
+
+  environment {
+    variables = {
+      APP_TABLE_NAME               = aws_dynamodb_table.app.name
+      SHOWTIME_REFRESH_QUEUE_URL   = aws_sqs_queue.gracenote_showtime_refresh_queue.id
     }
   }
 
