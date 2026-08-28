@@ -12,6 +12,12 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
 
   triggers = {
+    # API Gateway does not redeploy when an existing method/integration changes
+    # unless the deployment itself is replaced. Hash the definitions, not only IDs.
+    api_definition = sha1(join("", [
+      filesha1("${path.module}/apig.tf"),
+      filesha1("${path.module}/apig-methods.tf"),
+    ]))
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.movies.id,
       aws_api_gateway_resource.movies_search.id,
@@ -128,12 +134,78 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
   ]
 }
 
+resource "aws_cloudwatch_log_group" "api_gateway_access" {
+  name              = "/aws/apigateway/${var.app}-development-access"
+  retention_in_days = var.lambda_log_retention_days
+
+  tags = local.common_tags
+}
+
+resource "aws_cloudwatch_log_group" "api_gateway_execution" {
+  name              = "API-Gateway-Execution-Logs_${aws_api_gateway_rest_api.chimovieclub_api.id}/development"
+  retention_in_days = var.lambda_log_retention_days
+
+  tags = local.common_tags
+}
+
+resource "aws_iam_role" "api_gateway_cloudwatch" {
+  name = "${var.app}-api-gateway-cloudwatch-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Principal = { Service = "apigateway.amazonaws.com" }
+      Action = "sts:AssumeRole"
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "api_gateway_cloudwatch" {
+  role       = aws_iam_role.api_gateway_cloudwatch.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+}
+
+resource "aws_api_gateway_account" "cloudwatch" {
+  cloudwatch_role_arn = aws_iam_role.api_gateway_cloudwatch.arn
+
+  depends_on = [aws_iam_role_policy_attachment.api_gateway_cloudwatch]
+}
+
 resource "aws_api_gateway_stage" "development" {
   deployment_id = aws_api_gateway_deployment.cmc_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
   stage_name    = "development"
 
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway_access.arn
+    format = jsonencode({
+      requestId             = "$context.requestId"
+      resourcePath          = "$context.resourcePath"
+      httpMethod            = "$context.httpMethod"
+      status                = "$context.status"
+      integrationStatus     = "$context.integration.status"
+      responseLatency       = "$context.responseLatency"
+      integrationLatency    = "$context.integrationLatency"
+      integrationError      = "$context.integrationErrorMessage"
+    })
+  }
+
   tags = local.common_tags
+
+  depends_on = [aws_api_gateway_account.cloudwatch]
+}
+
+resource "aws_api_gateway_method_settings" "development_logging" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  stage_name  = aws_api_gateway_stage.development.stage_name
+  method_path = "*/*"
+
+  settings {
+    logging_level      = "INFO"
+    data_trace_enabled = false
+    metrics_enabled    = true
+  }
 }
 
 resource "aws_api_gateway_resource" "admin" {
