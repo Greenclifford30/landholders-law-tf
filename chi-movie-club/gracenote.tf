@@ -72,3 +72,23 @@ resource "aws_lambda_permission" "allow_eventbridge_upcoming_showtime_monitor" {
   principal     = "events.amazonaws.com"
   source_arn    = aws_cloudwatch_event_rule.upcoming_showtime_monitor.arn
 }
+
+resource "aws_cloudwatch_event_rule" "notification_worker" {
+  name                = "${var.app}-notification-worker"
+  description         = "Processes Movie Club notification outbox and due reminders hourly."
+  schedule_expression = "cron(0 * * * ? *)"
+  tags                = local.common_tags
+}
+
+resource "aws_cloudwatch_event_target" "notification_worker" {
+  rule = aws_cloudwatch_event_rule.notification_worker.name
+  arn  = aws_lambda_function.notification_worker.arn
+}
+
+resource "aws_lambda_permission" "allow_eventbridge_notification_worker" {
+  statement_id  = "AllowEventBridgeInvokeNotificationWorker"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.notification_worker.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.notification_worker.arn
+}

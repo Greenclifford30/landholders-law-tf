@@ -25,6 +25,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.clubs.id,
       aws_api_gateway_resource.me.id,
       aws_api_gateway_resource.me_preferences.id,
+      aws_api_gateway_resource.me_notifications.id,
+      aws_api_gateway_resource.me_notification_id.id,
       aws_api_gateway_resource.club_id.id,
       aws_api_gateway_resource.club_invites.id,
       aws_api_gateway_resource.club_invite_id.id,
@@ -41,6 +43,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.movie_night_vote.id,
       aws_api_gateway_resource.movie_night_vote_results.id,
       aws_api_gateway_resource.movie_night_confirm.id,
+      aws_api_gateway_resource.movie_night_cancel.id,
       aws_api_gateway_resource.movie_night_complete.id,
       aws_api_gateway_resource.movie_night_rsvp.id,
       aws_api_gateway_resource.movie_night_attendance.id,
@@ -55,6 +58,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.post_clubs.id,
       aws_api_gateway_method.get_me_preferences.id,
       aws_api_gateway_method.put_me_preferences.id,
+      aws_api_gateway_method.get_me_notifications.id,
+      aws_api_gateway_method.post_me_notification.id,
       aws_api_gateway_method.post_club_invites.id,
       aws_api_gateway_method.get_club_invites.id,
       aws_api_gateway_method.delete_club_invites.id,
@@ -69,6 +74,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.put_movie_night_vote.id,
       aws_api_gateway_method.get_movie_night_vote_results.id,
       aws_api_gateway_method.post_movie_night_confirm.id,
+      aws_api_gateway_method.post_movie_night_cancel.id,
       aws_api_gateway_method.post_movie_night_complete.id,
       aws_api_gateway_method.put_movie_night_rsvp.id,
       aws_api_gateway_method.get_movie_night_attendance.id,
@@ -81,6 +87,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_integration.post_clubs_integration.id,
       aws_api_gateway_integration.get_me_preferences_integration.id,
       aws_api_gateway_integration.put_me_preferences_integration.id,
+      aws_api_gateway_integration.get_me_notifications_integration.id,
+      aws_api_gateway_integration.post_me_notification_integration.id,
       aws_api_gateway_integration.post_club_invites_integration.id,
       aws_api_gateway_integration.get_club_invites_integration.id,
       aws_api_gateway_integration.delete_club_invites_integration.id,
@@ -95,6 +103,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_integration.put_movie_night_vote_integration.id,
       aws_api_gateway_integration.get_movie_night_vote_results_integration.id,
       aws_api_gateway_integration.post_movie_night_confirm_integration.id,
+      aws_api_gateway_integration.post_movie_night_cancel_integration.id,
       aws_api_gateway_integration.post_movie_night_complete_integration.id,
       aws_api_gateway_integration.put_movie_night_rsvp_integration.id,
       aws_api_gateway_integration.get_movie_night_attendance_integration.id,
@@ -121,6 +130,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.post_clubs_integration,
     aws_api_gateway_integration.get_me_preferences_integration,
     aws_api_gateway_integration.put_me_preferences_integration,
+    aws_api_gateway_integration.get_me_notifications_integration,
+    aws_api_gateway_integration.post_me_notification_integration,
     aws_api_gateway_integration.post_club_invites_integration,
     aws_api_gateway_integration.get_club_invites_integration,
     aws_api_gateway_integration.delete_club_invites_integration,
@@ -135,6 +146,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.put_movie_night_vote_integration,
     aws_api_gateway_integration.get_movie_night_vote_results_integration,
     aws_api_gateway_integration.post_movie_night_confirm_integration,
+    aws_api_gateway_integration.post_movie_night_cancel_integration,
     aws_api_gateway_integration.post_movie_night_complete_integration,
     aws_api_gateway_integration.put_movie_night_rsvp_integration,
     aws_api_gateway_integration.get_movie_night_attendance_integration,
@@ -313,6 +325,24 @@ resource "aws_api_gateway_resource" "club_invites" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_resource.club_id.id
   path_part   = "invites"
+}
+
+resource "aws_api_gateway_resource" "me_notifications" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.me.id
+  path_part   = "notifications"
+}
+
+resource "aws_api_gateway_resource" "me_notification_id" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.me_notifications.id
+  path_part   = "{notificationId}"
+}
+
+resource "aws_api_gateway_resource" "movie_night_cancel" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.movie_night_id.id
+  path_part   = "cancel"
 }
 
 resource "aws_api_gateway_resource" "club_invite_id" {

@@ -1,9 +1,17 @@
 # ###########################
 # # 1) Domain Identity
 # ###########################
-# resource "aws_ses_domain_identity" "landholderslaw_domain" {
-#   domain = var.ses_domain_name
-# }
+resource "aws_ses_domain_identity" "movie_club" {
+  domain = var.ses_domain_name
+}
+
+resource "aws_ses_domain_dkim" "movie_club" {
+  domain = aws_ses_domain_identity.movie_club.domain
+}
+
+resource "aws_ses_configuration_set" "movie_club_notifications" {
+  name = "${var.app}-notifications"
+}
 
 # # The next resource automatically verifies the domain identity 
 # # once the DNS record is in place. If DNS is not in Route53, 

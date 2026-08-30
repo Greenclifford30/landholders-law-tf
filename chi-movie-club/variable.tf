@@ -179,6 +179,12 @@ variable "gracenote_refresh_schedule_expression" {
   default     = "cron(0 11 * * ? *)"
 }
 
+variable "movie_club_notification_email_from" {
+  type        = string
+  description = "Verified SES sender for Movie Club planning notifications."
+  default     = ""
+}
+
 variable "upcoming_showtime_monitor_schedule_expression" {
   type        = string
   description = "EventBridge schedule expression for checking planned upcoming movie nights."

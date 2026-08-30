@@ -45,6 +45,12 @@ locals {
     get_calendar = {
       function_name = "${var.app}-get-calendar-lambda"
     }
+    manage_notifications = {
+      function_name = "${var.app}-manage-notifications-lambda"
+    }
+    cancel_movie_night = {
+      function_name = "${var.app}-cancel-movie-night-lambda"
+    }
   }
 
   lambda_log_group_names = merge(
@@ -178,6 +184,24 @@ resource "aws_lambda_function" "showtime_monitor" {
     }
   }
 
+  tags = local.common_tags
+}
+
+resource "aws_lambda_function" "notification_worker" {
+  function_name = "${var.app}-notification-worker-lambda"
+  role          = aws_iam_role.lambda_role.arn
+  runtime       = "python3.13"
+  handler       = "app.handler"
+  filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
+  timeout       = 60
+  environment {
+    variables = {
+      APP_TABLE_NAME          = aws_dynamodb_table.app.name
+      APP_BASE_URL            = var.movie_club_app_base_url
+      NOTIFICATION_EMAIL_FROM = var.movie_club_notification_email_from
+      NOTIFICATION_EMAIL_CONFIGURATION_SET = aws_ses_configuration_set.movie_club_notifications.name
+    }
+  }
   tags = local.common_tags
 }
 

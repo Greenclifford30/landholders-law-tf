@@ -151,6 +151,8 @@ locals {
     movies_now_playing        = aws_api_gateway_resource.movies_now_playing.id
     clubs                     = aws_api_gateway_resource.clubs.id
     me_preferences            = aws_api_gateway_resource.me_preferences.id
+    me_notifications          = aws_api_gateway_resource.me_notifications.id
+    me_notification_id        = aws_api_gateway_resource.me_notification_id.id
     club_invites              = aws_api_gateway_resource.club_invites.id
     club_invite_id            = aws_api_gateway_resource.club_invite_id.id
     club_members              = aws_api_gateway_resource.club_members.id
@@ -163,6 +165,7 @@ locals {
     movie_night_vote          = aws_api_gateway_resource.movie_night_vote.id
     movie_night_vote_results  = aws_api_gateway_resource.movie_night_vote_results.id
     movie_night_confirm       = aws_api_gateway_resource.movie_night_confirm.id
+    movie_night_cancel        = aws_api_gateway_resource.movie_night_cancel.id
     movie_night_complete      = aws_api_gateway_resource.movie_night_complete.id
     movie_night_rsvp          = aws_api_gateway_resource.movie_night_rsvp.id
     movie_night_attendance    = aws_api_gateway_resource.movie_night_attendance.id
@@ -329,6 +332,37 @@ resource "aws_api_gateway_integration" "get_club_invites_integration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.app_handlers["manage_invites"].invoke_arn
+}
+
+resource "aws_api_gateway_method" "get_me_notifications" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id = aws_api_gateway_resource.me_notifications.id
+  http_method = "GET"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+resource "aws_api_gateway_integration" "get_me_notifications_integration" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id = aws_api_gateway_resource.me_notifications.id
+  http_method = aws_api_gateway_method.get_me_notifications.http_method
+  integration_http_method = "POST"
+  type = "AWS_PROXY"
+  uri = aws_lambda_function.app_handlers["manage_notifications"].invoke_arn
+}
+resource "aws_api_gateway_method" "post_me_notification" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id = aws_api_gateway_resource.me_notification_id.id
+  http_method = "POST"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+resource "aws_api_gateway_integration" "post_me_notification_integration" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id = aws_api_gateway_resource.me_notification_id.id
+  http_method = aws_api_gateway_method.post_me_notification.http_method
+  integration_http_method = "POST"
+  type = "AWS_PROXY"
+  uri = aws_lambda_function.app_handlers["manage_notifications"].invoke_arn
 }
 
 # DELETE /clubs/{clubId}/invites
@@ -580,6 +614,22 @@ resource "aws_api_gateway_integration" "post_movie_night_confirm_integration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.app_handlers["confirm_showtime"].invoke_arn
+}
+
+resource "aws_api_gateway_method" "post_movie_night_cancel" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id = aws_api_gateway_resource.movie_night_cancel.id
+  http_method = "POST"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+resource "aws_api_gateway_integration" "post_movie_night_cancel_integration" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id = aws_api_gateway_resource.movie_night_cancel.id
+  http_method = aws_api_gateway_method.post_movie_night_cancel.http_method
+  integration_http_method = "POST"
+  type = "AWS_PROXY"
+  uri = aws_lambda_function.app_handlers["cancel_movie_night"].invoke_arn
 }
 
 # POST /movie-nights/{movieNightId}/complete
