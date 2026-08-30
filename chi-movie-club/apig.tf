@@ -27,6 +27,8 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_resource.me_preferences.id,
       aws_api_gateway_resource.club_id.id,
       aws_api_gateway_resource.club_invites.id,
+      aws_api_gateway_resource.club_invite_id.id,
+      aws_api_gateway_resource.club_members.id,
       aws_api_gateway_resource.invites.id,
       aws_api_gateway_resource.invite_token.id,
       aws_api_gateway_resource.invite_accept.id,
@@ -55,6 +57,9 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_method.put_me_preferences.id,
       aws_api_gateway_method.post_club_invites.id,
       aws_api_gateway_method.get_club_invites.id,
+      aws_api_gateway_method.delete_club_invites.id,
+      aws_api_gateway_method.delete_club_invite.id,
+      aws_api_gateway_method.get_club_members.id,
       aws_api_gateway_method.get_invite.id,
       aws_api_gateway_method.post_accept_invite.id,
       aws_api_gateway_method.post_club_movie_nights.id,
@@ -78,6 +83,9 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       aws_api_gateway_integration.put_me_preferences_integration.id,
       aws_api_gateway_integration.post_club_invites_integration.id,
       aws_api_gateway_integration.get_club_invites_integration.id,
+      aws_api_gateway_integration.delete_club_invites_integration.id,
+      aws_api_gateway_integration.delete_club_invite_integration.id,
+      aws_api_gateway_integration.get_club_members_integration.id,
       aws_api_gateway_integration.get_invite_integration.id,
       aws_api_gateway_integration.post_accept_invite_integration.id,
       aws_api_gateway_integration.post_club_movie_nights_integration.id,
@@ -115,6 +123,9 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     aws_api_gateway_integration.put_me_preferences_integration,
     aws_api_gateway_integration.post_club_invites_integration,
     aws_api_gateway_integration.get_club_invites_integration,
+    aws_api_gateway_integration.delete_club_invites_integration,
+    aws_api_gateway_integration.delete_club_invite_integration,
+    aws_api_gateway_integration.get_club_members_integration,
     aws_api_gateway_integration.get_invite_integration,
     aws_api_gateway_integration.post_accept_invite_integration,
     aws_api_gateway_integration.post_club_movie_nights_integration,
@@ -302,6 +313,18 @@ resource "aws_api_gateway_resource" "club_invites" {
   rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
   parent_id   = aws_api_gateway_resource.club_id.id
   path_part   = "invites"
+}
+
+resource "aws_api_gateway_resource" "club_invite_id" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.club_invites.id
+  path_part   = "{inviteId}"
+}
+
+resource "aws_api_gateway_resource" "club_members" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.club_id.id
+  path_part   = "members"
 }
 
 resource "aws_api_gateway_resource" "invites" {

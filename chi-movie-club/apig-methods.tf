@@ -152,6 +152,8 @@ locals {
     clubs                     = aws_api_gateway_resource.clubs.id
     me_preferences            = aws_api_gateway_resource.me_preferences.id
     club_invites              = aws_api_gateway_resource.club_invites.id
+    club_invite_id            = aws_api_gateway_resource.club_invite_id.id
+    club_members              = aws_api_gateway_resource.club_members.id
     invite_token              = aws_api_gateway_resource.invite_token.id
     invite_accept             = aws_api_gateway_resource.invite_accept.id
     club_movie_nights         = aws_api_gateway_resource.club_movie_nights.id
@@ -216,7 +218,7 @@ resource "aws_api_gateway_integration_response" "cors_options_integration_respon
 
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
-    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,PUT,OPTIONS'"
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,POST,PUT,DELETE,OPTIONS'"
     "method.response.header.Access-Control-Allow-Origin"  = "'*'"
   }
 }
@@ -324,6 +326,60 @@ resource "aws_api_gateway_integration" "get_club_invites_integration" {
   rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
   resource_id             = aws_api_gateway_resource.club_invites.id
   http_method             = aws_api_gateway_method.get_club_invites.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_invites"].invoke_arn
+}
+
+# DELETE /clubs/{clubId}/invites
+resource "aws_api_gateway_method" "delete_club_invites" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.club_invites.id
+  http_method   = "DELETE"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "delete_club_invites_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.club_invites.id
+  http_method             = aws_api_gateway_method.delete_club_invites.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_invites"].invoke_arn
+}
+
+# DELETE /clubs/{clubId}/invites/{inviteId}
+resource "aws_api_gateway_method" "delete_club_invite" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.club_invite_id.id
+  http_method   = "DELETE"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "delete_club_invite_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.club_invite_id.id
+  http_method             = aws_api_gateway_method.delete_club_invite.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.app_handlers["manage_invites"].invoke_arn
+}
+
+# GET /clubs/{clubId}/members
+resource "aws_api_gateway_method" "get_club_members" {
+  rest_api_id   = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id   = aws_api_gateway_resource.club_members.id
+  http_method   = "GET"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.cognito.id
+}
+
+resource "aws_api_gateway_integration" "get_club_members_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.chimovieclub_api.id
+  resource_id             = aws_api_gateway_resource.club_members.id
+  http_method             = aws_api_gateway_method.get_club_members.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.app_handlers["manage_invites"].invoke_arn
