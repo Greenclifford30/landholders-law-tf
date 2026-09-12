@@ -30,6 +30,10 @@ variable "google_verification_value" {
   description = "google verification"
 }
 
+variable "cmc_google_verification_value" {
+  type = string
+}
+
 variable "chimovieclub_cognito_domain_prefix" {
   type        = string
   description = "Globally unique Cognito Hosted UI domain prefix for Chi Movie Club."

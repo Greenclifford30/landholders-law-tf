@@ -9,7 +9,7 @@ module "onewayelectric" {
 
 module "chimovieclub" {
   source                       = "./chi-movie-club"
-  google_verification_value    = ""
+  google_verification_value    = var.cmc_google_verification_value
   owner_email                  = var.owner_email
   cognito_domain_prefix        = var.chimovieclub_cognito_domain_prefix
   cognito_google_client_id     = var.chimovieclub_cognito_google_client_id
