@@ -19,7 +19,7 @@ variable "domain" {
 # ses.tf
 variable "ses_domain_name" {
   type        = string
-  default     = "chicagomovieclub.app.app"
+  default     = "chicagomovieclub.app"
   description = "Domain name to verify for SES."
 }
 
