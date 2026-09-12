@@ -2,7 +2,7 @@
 # # 1) Domain Identity
 # ###########################
 resource "aws_ses_domain_identity" "movie_club" {
-  domain = var.ses_domain_name
+  domain = var.domain
 }
 
 resource "aws_ses_domain_dkim" "movie_club" {
