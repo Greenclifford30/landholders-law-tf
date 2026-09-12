@@ -16,25 +16,25 @@ resource "aws_ses_configuration_set" "movie_club_notifications" {
 # # The next resource automatically verifies the domain identity 
 # # once the DNS record is in place. If DNS is not in Route53, 
 # # you can omit this and verify manually via the console.
-# resource "aws_ses_domain_identity_verification" "landholderslaw_domain_verify" {
-#   domain = aws_ses_domain_identity.landholderslaw_domain.domain
-#   depends_on = [
-#     aws_route53_record.ses_verification_record
-#   ]
-# }
+resource "aws_ses_domain_identity_verification" "movie_club_verify" {
+  domain = aws_ses_domain_identity.movie_club.domain
+  depends_on = [
+    aws_route53_record.ses_verification_record
+  ]
+}
 
 # ###########################
 # # 2) DKIM Setup
 # ###########################
-# resource "aws_ses_domain_dkim" "landholderslaw_domain_dkim" {
-#   domain = aws_ses_domain_identity.landholderslaw_domain.domain
-# }
+resource "aws_ses_domain_dkim" "movie_club_domain_dkim" {
+  domain = aws_ses_domain_identity.movie_club.domain
+}
 
 # ###########################
 # # 3) (Optional) Mail-From
 # ###########################
-# resource "aws_ses_domain_mail_from" "landholderslaw_domain_mailfrom" {
-#   domain          = aws_ses_domain_identity.landholderslaw_domain.domain
-#   mail_from_domain = "bounces.${var.ses_domain_name}"
-#   behavior_on_mx_failure = "UseDefaultValue"
-# }
+resource "aws_ses_domain_mail_from" "movie_club_domain_mailfrom" {
+  domain          = aws_ses_domain_identity.movie_club.domain
+  mail_from_domain = "bounces.${var.ses_domain_name}"
+  behavior_on_mx_failure = "UseDefaultValue"
+}
