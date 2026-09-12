@@ -10,6 +10,12 @@ variable "business_email" {
   description = "Email of the business owner to receive notifications."
 }
 
+variable "domain" {
+  type        = string
+  default     = "chicagomovieclub.app"
+  description = "Application Domain."
+}
+
 # ses.tf
 variable "ses_domain_name" {
   type        = string
