@@ -6,7 +6,7 @@ variable "owner_email" {
 
 variable "business_email" {
   type        = string
-  default     = "assistant@chimovieclub.app"
+  default     = "assistant@chicagomovieclub.app"
   description = "Email of the business owner to receive notifications."
 }
 
@@ -19,7 +19,7 @@ variable "domain" {
 # ses.tf
 variable "ses_domain_name" {
   type        = string
-  default     = "chimovieclub.app"
+  default     = "chicagomovieclub.app.app"
   description = "Domain name to verify for SES."
 }
 
