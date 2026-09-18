@@ -296,7 +296,10 @@ resource "aws_lambda_function" "app_handlers" {
       } : {},
       each.key == "manage_showtimes" ? {
         SHOWTIME_REFRESH_QUEUE_URL = aws_sqs_queue.gracenote_showtime_refresh_queue.id
-      } : {}
+      } : {},
+      each.key == "movie_search" ? {} : {
+        NOTIFICATION_WORKER_FUNCTION_NAME = aws_lambda_function.notification_worker.function_name
+      }
     )
   }
 

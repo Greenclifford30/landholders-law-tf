@@ -42,6 +42,10 @@ data "aws_iam_policy_document" "policy" {
     resources = [aws_cognito_user_pool.main.arn]
   }
   statement {
+    actions = ["lambda:InvokeFunction"]
+    resources = [aws_lambda_function.notification_worker.arn]
+  }
+  statement {
     actions = [
       "ses:SendEmail",
       "ses:SendRawEmail",
