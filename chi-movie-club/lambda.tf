@@ -1,4 +1,6 @@
 locals {
+  notification_email_from = coalesce(var.movie_club_notification_email_from, "notifications@${var.domain}")
+
   app_lambda_handlers = {
     movie_search = {
       function_name = "${var.app}-movie-search-lambda"
@@ -198,8 +200,10 @@ resource "aws_lambda_function" "notification_worker" {
     variables = {
       APP_TABLE_NAME          = aws_dynamodb_table.app.name
       APP_BASE_URL            = var.movie_club_app_base_url
-      NOTIFICATION_EMAIL_FROM = var.movie_club_notification_email_from
+      NOTIFICATION_EMAIL_FROM = local.notification_email_from
       NOTIFICATION_EMAIL_CONFIGURATION_SET = aws_ses_configuration_set.movie_club_notifications.name
+      WEB_PUSH_VAPID_PRIVATE_KEY = var.movie_club_web_push_vapid_private_key
+      WEB_PUSH_VAPID_CLAIMS_EMAIL = var.movie_club_web_push_vapid_claims_email
     }
   }
   tags = local.common_tags

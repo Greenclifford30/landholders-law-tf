@@ -191,6 +191,25 @@ variable "movie_club_notification_email_from" {
   default     = ""
 }
 
+variable "movie_club_web_push_vapid_public_key" {
+  type        = string
+  description = "Base64url VAPID public key used by the Movie Club web client to create browser push subscriptions."
+  default     = ""
+}
+
+variable "movie_club_web_push_vapid_private_key" {
+  type        = string
+  description = "Base64url VAPID private key used only by the notification worker to sign browser push messages."
+  sensitive   = true
+  default     = ""
+}
+
+variable "movie_club_web_push_vapid_claims_email" {
+  type        = string
+  description = "Contact email used in the VAPID subject claim, for example mailto:ops@example.com."
+  default     = ""
+}
+
 variable "upcoming_showtime_monitor_schedule_expression" {
   type        = string
   description = "EventBridge schedule expression for checking planned upcoming movie nights."
