@@ -191,6 +191,23 @@ variable "movie_club_notification_email_from" {
   default     = ""
 }
 
+variable "movie_club_dmarc_policy" {
+  type        = string
+  description = "DMARC policy for the Movie Club domain. Keep none while monitoring authentication reports."
+  default     = "none"
+
+  validation {
+    condition     = contains(["none", "quarantine", "reject"], var.movie_club_dmarc_policy)
+    error_message = "movie_club_dmarc_policy must be none, quarantine, or reject."
+  }
+}
+
+variable "movie_club_dmarc_reporting_email" {
+  type        = string
+  description = "Address that receives DMARC aggregate reports. Defaults to business_email when empty."
+  default     = ""
+}
+
 variable "movie_club_web_push_vapid_public_key" {
   type        = string
   description = "Base64url VAPID public key used by the Movie Club web client to create browser push subscriptions."

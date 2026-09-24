@@ -200,6 +200,7 @@ resource "aws_lambda_function" "notification_worker" {
     variables = {
       APP_TABLE_NAME          = aws_dynamodb_table.app.name
       APP_BASE_URL            = var.movie_club_app_base_url
+      LOG_LEVEL               = "INFO"
       NOTIFICATION_EMAIL_FROM = local.notification_email_from
       NOTIFICATION_EMAIL_CONFIGURATION_SET = aws_ses_configuration_set.movie_club_notifications.name
       WEB_PUSH_VAPID_PRIVATE_KEY = var.movie_club_web_push_vapid_private_key
