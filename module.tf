@@ -16,6 +16,9 @@ module "chimovieclub" {
   cognito_google_client_secret = var.chimovieclub_cognito_google_client_secret
   cognito_callback_urls        = var.chimovieclub_cognito_callback_urls
   cognito_logout_urls          = var.chimovieclub_cognito_logout_urls
+  movie_club_web_push_vapid_claims_email = var.movie_club_web_push_vapid_claims_email
+  movie_club_web_push_vapid_private_key = var.movie_club_web_push_vapid_private_key
+  movie_club_web_push_vapid_public_key = var.movie_club_web_push_vapid_public_key
 }
 
 # module "sinflul_delights" {
