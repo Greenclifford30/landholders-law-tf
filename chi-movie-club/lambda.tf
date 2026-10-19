@@ -2,6 +2,12 @@ locals {
   notification_email_from = coalesce(var.movie_club_notification_email_from, "notifications@${var.domain}")
 
   app_lambda_handlers = {
+    manage_movie_proposals = {
+      function_name = "${var.app}-manage-movie-proposals-lambda"
+    }
+    list_movie_nights = {
+      function_name = "${var.app}-list-movie-nights-lambda"
+    }
     movie_search = {
       function_name = "${var.app}-movie-search-lambda"
     }
@@ -181,8 +187,8 @@ resource "aws_lambda_function" "showtime_monitor" {
 
   environment {
     variables = {
-      APP_TABLE_NAME               = aws_dynamodb_table.app.name
-      SHOWTIME_REFRESH_QUEUE_URL   = aws_sqs_queue.gracenote_showtime_refresh_queue.id
+      APP_TABLE_NAME             = aws_dynamodb_table.app.name
+      SHOWTIME_REFRESH_QUEUE_URL = aws_sqs_queue.gracenote_showtime_refresh_queue.id
     }
   }
 
@@ -198,13 +204,13 @@ resource "aws_lambda_function" "notification_worker" {
   timeout       = 60
   environment {
     variables = {
-      APP_TABLE_NAME          = aws_dynamodb_table.app.name
-      APP_BASE_URL            = var.movie_club_app_base_url
-      LOG_LEVEL               = "INFO"
-      NOTIFICATION_EMAIL_FROM = local.notification_email_from
+      APP_TABLE_NAME                       = aws_dynamodb_table.app.name
+      APP_BASE_URL                         = var.movie_club_app_base_url
+      LOG_LEVEL                            = "INFO"
+      NOTIFICATION_EMAIL_FROM              = local.notification_email_from
       NOTIFICATION_EMAIL_CONFIGURATION_SET = aws_ses_configuration_set.movie_club_notifications.name
-      WEB_PUSH_VAPID_PRIVATE_KEY = var.movie_club_web_push_vapid_private_key
-      WEB_PUSH_VAPID_CLAIMS_EMAIL = var.movie_club_web_push_vapid_claims_email
+      WEB_PUSH_VAPID_PRIVATE_KEY           = var.movie_club_web_push_vapid_private_key
+      WEB_PUSH_VAPID_CLAIMS_EMAIL          = var.movie_club_web_push_vapid_claims_email
     }
   }
   tags = local.common_tags
@@ -279,8 +285,10 @@ resource "aws_lambda_function" "get_options" {
 resource "aws_lambda_function" "app_handlers" {
   for_each = local.app_lambda_handlers
 
+  timeout = each.key == "manage_movie_proposals" ? 30 : 3
+
   function_name = each.value.function_name
-  role          = each.key == "movie_search" ? aws_iam_role.movie_search_lambda_role.arn : aws_iam_role.lambda_role.arn
+  role          = each.key == "movie_search" ? aws_iam_role.movie_search_lambda_role.arn : each.key == "manage_movie_proposals" ? aws_iam_role.proposals_lambda_role.arn : aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
   handler       = "app.handler"
   filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
@@ -290,19 +298,19 @@ resource "aws_lambda_function" "app_handlers" {
       {
         APP_TABLE_NAME = aws_dynamodb_table.app.name
       },
-      each.key == "movie_search" ? {
+      contains(["movie_search", "manage_movie_proposals"], each.key) ? {
         TMDB_SECRET_ARN = aws_secretsmanager_secret.tmdb_api_token.arn
         TMDB_BASE_URL   = var.tmdb_base_url
       } : {},
       each.key == "manage_invites" ? {
-        APP_BASE_URL      = var.movie_club_app_base_url
+        APP_BASE_URL         = var.movie_club_app_base_url
         COGNITO_USER_POOL_ID = aws_cognito_user_pool.main.id
-        INVITE_EMAIL_FROM = var.movie_club_invite_email_from
+        INVITE_EMAIL_FROM    = var.movie_club_invite_email_from
       } : {},
       each.key == "manage_showtimes" ? {
         SHOWTIME_REFRESH_QUEUE_URL = aws_sqs_queue.gracenote_showtime_refresh_queue.id
       } : {},
-      each.key == "movie_search" ? {} : {
+      contains(["movie_search", "manage_movie_proposals"], each.key) ? {} : {
         NOTIFICATION_WORKER_FUNCTION_NAME = aws_lambda_function.notification_worker.function_name
       }
     )

@@ -38,11 +38,11 @@ resource "aws_iam_policy" "lambda_policy" {
 
 data "aws_iam_policy_document" "policy" {
   statement {
-    actions = ["cognito-idp:AdminAddUserToGroup"]
+    actions   = ["cognito-idp:AdminAddUserToGroup"]
     resources = [aws_cognito_user_pool.main.arn]
   }
   statement {
-    actions = ["lambda:InvokeFunction"]
+    actions   = ["lambda:InvokeFunction"]
     resources = [aws_lambda_function.notification_worker.arn]
   }
   statement {
@@ -57,6 +57,7 @@ data "aws_iam_policy_document" "policy" {
     actions = [
       "dynamodb:PutItem",
       "dynamodb:TransactWriteItems",
+      "dynamodb:ConditionCheckItem",
       "dynamodb:BatchWriteItem",
       "dynamodb:GetItem",
       "dynamodb:UpdateItem",
@@ -236,4 +237,30 @@ data "aws_iam_policy_document" "gracenote_showtime_worker_policy" {
 resource "aws_iam_role_policy_attachment" "gracenote_showtime_worker_attach" {
   role       = aws_iam_role.gracenote_showtime_worker_lambda_role.name
   policy_arn = aws_iam_policy.gracenote_showtime_worker_policy.arn
+}
+
+# Proposals need table access and only the TMDB provider secret.
+resource "aws_iam_role" "proposals_lambda_role" {
+  name               = "${var.app}-proposals-role"
+  assume_role_policy = data.aws_iam_policy_document.lambda_trust.json
+  tags               = local.common_tags
+}
+resource "aws_iam_role_policy_attachment" "proposals_basic_execution" {
+  role       = aws_iam_role.proposals_lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+resource "aws_iam_role_policy_attachment" "proposals_tmdb" {
+  role       = aws_iam_role.proposals_lambda_role.name
+  policy_arn = aws_iam_policy.movie_search_lambda_policy.arn
+}
+resource "aws_iam_role_policy" "proposals_table" {
+  role = aws_iam_role.proposals_lambda_role.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["dynamodb:GetItem", "dynamodb:Query", "dynamodb:PutItem", "dynamodb:DeleteItem", "dynamodb:ConditionCheckItem", "dynamodb:TransactWriteItems"]
+      Resource = [aws_dynamodb_table.app.arn]
+    }]
+  })
 }

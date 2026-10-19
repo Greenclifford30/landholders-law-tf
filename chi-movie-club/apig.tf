@@ -17,8 +17,10 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
     api_definition = sha1(join("", [
       filesha1("${path.module}/apig.tf"),
       filesha1("${path.module}/apig-methods.tf"),
+      filesha1("${path.module}/collaboration.tf"),
     ]))
     redeployment = sha1(jsonencode([
+      aws_api_gateway_integration.collaboration,
       aws_api_gateway_resource.movies.id,
       aws_api_gateway_resource.movies_search.id,
       aws_api_gateway_resource.movies_now_playing.id,
@@ -120,6 +122,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
   }
 
   depends_on = [
+    aws_api_gateway_integration.collaboration,
     aws_api_gateway_integration.post_admin_selection_integration,
     aws_api_gateway_integration.post_vote_integration,
     aws_api_gateway_integration.get_selection_integration,
@@ -177,9 +180,9 @@ resource "aws_iam_role" "api_gateway_cloudwatch" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Effect = "Allow"
+      Effect    = "Allow"
       Principal = { Service = "apigateway.amazonaws.com" }
-      Action = "sts:AssumeRole"
+      Action    = "sts:AssumeRole"
     }]
   })
 }
@@ -203,14 +206,14 @@ resource "aws_api_gateway_stage" "development" {
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_access.arn
     format = jsonencode({
-      requestId             = "$context.requestId"
-      resourcePath          = "$context.resourcePath"
-      httpMethod            = "$context.httpMethod"
-      status                = "$context.status"
-      integrationStatus     = "$context.integration.status"
-      responseLatency       = "$context.responseLatency"
-      integrationLatency    = "$context.integrationLatency"
-      integrationError      = "$context.integrationErrorMessage"
+      requestId          = "$context.requestId"
+      resourcePath       = "$context.resourcePath"
+      httpMethod         = "$context.httpMethod"
+      status             = "$context.status"
+      integrationStatus  = "$context.integration.status"
+      responseLatency    = "$context.responseLatency"
+      integrationLatency = "$context.integrationLatency"
+      integrationError   = "$context.integrationErrorMessage"
     })
   }
 
