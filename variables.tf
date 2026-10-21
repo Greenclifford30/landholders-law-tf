@@ -54,7 +54,7 @@ variable "chimovieclub_cognito_google_client_secret" {
 variable "chimovieclub_cognito_callback_urls" {
   type        = list(string)
   description = "Allowed Chi Movie Club Cognito OAuth callback URLs."
-  default     = ["https://chicagomovieclub.app/callback", "http://localhost:3000/auth/callback"]
+  default     = ["https://chicagomovieclub.app/auth/callback", "http://localhost:3000/auth/callback"]
 }
 
 variable "chimovieclub_cognito_logout_urls" {

@@ -28,6 +28,9 @@ locals {
     proposal_unendorse = { resource_id = aws_api_gateway_resource.club_proposal_endorsement.id, method = "DELETE", handler = "manage_movie_proposals" }
     proposal_schedule  = { resource_id = aws_api_gateway_resource.club_proposal_schedule.id, method = "POST", handler = "manage_movie_proposals" }
     night_list         = { resource_id = aws_api_gateway_resource.club_movie_nights.id, method = "GET", handler = "list_movie_nights" }
+    personal_agenda    = { resource_id = aws_api_gateway_resource.me_movie_nights.id, method = "GET", handler = "list_movie_nights" }
+    night_edit         = { resource_id = aws_api_gateway_resource.movie_night_id.id, method = "PATCH", handler = "list_movie_nights" }
+    plan_acknowledge   = { resource_id = aws_api_gateway_resource.plan_acknowledgement_me.id, method = "PUT", handler = "list_movie_nights" }
     night_detail       = { resource_id = aws_api_gateway_resource.movie_night_id.id, method = "GET", handler = "list_movie_nights" }
   }
 }
@@ -47,4 +50,20 @@ resource "aws_api_gateway_integration" "collaboration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.app_handlers[each.value.handler].invoke_arn
+}
+
+resource "aws_api_gateway_resource" "me_movie_nights" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.me.id
+  path_part   = "movie-nights"
+}
+resource "aws_api_gateway_resource" "plan_acknowledgement" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.movie_night_id.id
+  path_part   = "plan-acknowledgement"
+}
+resource "aws_api_gateway_resource" "plan_acknowledgement_me" {
+  rest_api_id = aws_api_gateway_rest_api.chimovieclub_api.id
+  parent_id   = aws_api_gateway_resource.plan_acknowledgement.id
+  path_part   = "me"
 }
