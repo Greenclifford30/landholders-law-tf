@@ -176,6 +176,14 @@ locals {
     movie_night_attendance    = aws_api_gateway_resource.movie_night_attendance.id
     admin_gracenote_refresh   = aws_api_gateway_resource.admin_showtimes_gracenote_refresh.id
     admin_gracenote_search    = aws_api_gateway_resource.admin_showtimes_gracenote_search.id
+    me_google_calendar        = aws_api_gateway_resource.me_google_calendar.id
+    me_google_authorize       = aws_api_gateway_resource.me_google_calendar_authorize.id
+    me_google_calendars       = aws_api_gateway_resource.me_google_calendar_calendars.id
+    me_google_sync            = aws_api_gateway_resource.me_google_calendar_sync.id
+    google_calendar_callback  = aws_api_gateway_resource.google_calendar_callback.id
+    club_members_me           = aws_api_gateway_resource.club_members_me.id
+    movie_availability        = aws_api_gateway_resource.movie_night_availability.id
+    movie_availability_me     = aws_api_gateway_resource.movie_night_availability_me.id
   }
 }
 

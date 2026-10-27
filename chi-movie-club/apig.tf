@@ -18,9 +18,11 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
       filesha1("${path.module}/apig.tf"),
       filesha1("${path.module}/apig-methods.tf"),
       filesha1("${path.module}/collaboration.tf"),
+      filesha1("${path.module}/calendar-availability.tf"),
     ]))
     redeployment = sha1(jsonencode([
       aws_api_gateway_integration.collaboration,
+      aws_api_gateway_integration.calendar_routes,
       aws_api_gateway_resource.movies.id,
       aws_api_gateway_resource.movies_search.id,
       aws_api_gateway_resource.movies_now_playing.id,
@@ -123,6 +125,7 @@ resource "aws_api_gateway_deployment" "cmc_deployment" {
 
   depends_on = [
     aws_api_gateway_integration.collaboration,
+    aws_api_gateway_integration.calendar_routes,
     aws_api_gateway_integration.post_admin_selection_integration,
     aws_api_gateway_integration.post_vote_integration,
     aws_api_gateway_integration.get_selection_integration,

@@ -24,7 +24,7 @@ variable "ses_domain_name" {
 }
 
 variable "google_verification_value" {
-  type = string
+  type        = string
   description = "google verification"
 }
 
@@ -267,6 +267,36 @@ variable "lambda_log_retention_days" {
   type        = number
   description = "CloudWatch Logs retention in days for Chi Movie Club Lambda log groups."
   default     = 14
+}
+
+variable "google_calendar_feature_enabled" {
+  type        = bool
+  description = "Enables Google Calendar connection after consent-screen and OAuth verification readiness."
+  default     = false
+}
+
+variable "google_calendar_secret_name" {
+  type        = string
+  description = "Secrets Manager name containing JSON client_id and client_secret for the dedicated Google Calendar OAuth client."
+  default     = "/cmc/production/google-calendar/oauth-client"
+}
+
+variable "google_calendar_redirect_uris" {
+  type        = list(string)
+  description = "Exact app callback URLs permitted for Google Calendar OAuth."
+  default     = ["http://localhost:3000/api/google-calendar/callback", "https://chicagomovieclub.app/api/google-calendar/callback"]
+}
+
+variable "calendar_sync_schedule_expression" {
+  type        = string
+  description = "EventBridge schedule used to refresh connected Google calendars."
+  default     = "rate(1 hour)"
+}
+
+variable "calendar_sync_worker_timeout_seconds" {
+  type        = number
+  description = "Timeout for one Google Calendar sync worker invocation."
+  default     = 60
 }
 
 variable "monthly_budget_limit_usd" {

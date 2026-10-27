@@ -47,6 +47,18 @@ locals {
     manage_preferences = {
       function_name = "${var.app}-manage-preferences-lambda"
     }
+    manage_calendar_integration = {
+      function_name = "${var.app}-manage-calendar-integration-lambda"
+    }
+    manage_availability = {
+      function_name = "${var.app}-manage-availability-lambda"
+    }
+    calendar_sync_coordinator = {
+      function_name = "${var.app}-calendar-sync-coordinator-lambda"
+    }
+    calendar_sync_worker = {
+      function_name = "${var.app}-calendar-sync-worker-lambda"
+    }
     get_attendance = {
       function_name = "${var.app}-get-attendance-lambda"
     }
@@ -285,10 +297,10 @@ resource "aws_lambda_function" "get_options" {
 resource "aws_lambda_function" "app_handlers" {
   for_each = local.app_lambda_handlers
 
-  timeout = each.key == "manage_movie_proposals" ? 30 : 3
+  timeout = each.key == "manage_movie_proposals" ? 30 : each.key == "calendar_sync_worker" ? var.calendar_sync_worker_timeout_seconds : 10
 
   function_name = each.value.function_name
-  role          = each.key == "movie_search" ? aws_iam_role.movie_search_lambda_role.arn : each.key == "manage_movie_proposals" ? aws_iam_role.proposals_lambda_role.arn : aws_iam_role.lambda_role.arn
+  role          = each.key == "movie_search" ? aws_iam_role.movie_search_lambda_role.arn : each.key == "manage_movie_proposals" ? aws_iam_role.proposals_lambda_role.arn : each.key == "manage_calendar_integration" ? aws_iam_role.calendar_integration_lambda_role.arn : each.key == "calendar_sync_worker" ? aws_iam_role.calendar_sync_worker_lambda_role.arn : each.key == "calendar_sync_coordinator" ? aws_iam_role.calendar_sync_coordinator_lambda_role.arn : aws_iam_role.lambda_role.arn
   runtime       = "python3.13"
   handler       = "app.handler"
   filename      = "${path.module}/placeholder_lambda/placeholder_lambda.zip"
@@ -309,6 +321,18 @@ resource "aws_lambda_function" "app_handlers" {
       } : {},
       each.key == "manage_showtimes" ? {
         SHOWTIME_REFRESH_QUEUE_URL = aws_sqs_queue.gracenote_showtime_refresh_queue.id
+      } : {},
+      contains(["manage_preferences", "manage_showtimes", "manage_clubs", "manage_calendar_integration", "calendar_sync_coordinator"], each.key) ? {
+        CALENDAR_SYNC_QUEUE_URL = aws_sqs_queue.calendar_sync.id
+      } : {},
+      each.key == "manage_calendar_integration" ? {
+        GOOGLE_CALENDAR_ENABLED       = tostring(var.google_calendar_feature_enabled)
+        GOOGLE_CALENDAR_SECRET_ARN    = aws_secretsmanager_secret.google_calendar_oauth.arn
+        GOOGLE_CALENDAR_KMS_KEY_ARN   = aws_kms_key.google_calendar_tokens.arn
+        GOOGLE_CALENDAR_REDIRECT_URIS = join(",", var.google_calendar_redirect_uris)
+      } : {},
+      each.key == "calendar_sync_worker" ? {
+        GOOGLE_CALENDAR_SECRET_ARN = aws_secretsmanager_secret.google_calendar_oauth.arn
       } : {},
       contains(["movie_search", "manage_movie_proposals"], each.key) ? {} : {
         NOTIFICATION_WORKER_FUNCTION_NAME = aws_lambda_function.notification_worker.function_name
